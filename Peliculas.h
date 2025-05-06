@@ -130,7 +130,7 @@ class ArchivoPelicula {
             fclose(f);
         }
 
-        int buscarPorID(int idBuscado) { //INVERCION A FUTURO
+        int buscarPorID(int idBuscado) { //INVERSION A FUTURO
             Pelicula p;
             FILE* f = fopen(nombreArchivo, "rb");
             if (f == nullptr) return -1;
