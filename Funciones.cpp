@@ -71,8 +71,7 @@ void switchMenu(int eleccion){
 }
 
 void peliculas(){
-    ArchivoSala ASala("Sala.dat");
-    ASala.listarTodos();
+
 }
 
 
