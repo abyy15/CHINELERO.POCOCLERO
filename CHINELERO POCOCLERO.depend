@@ -3,14 +3,32 @@
 	<iostream>
 	"Funciones.h"
 
-1746543889 source:c:\users\artor\desktop\programacion\chinelero pococlero\chinelero.pococlero\funciones.cpp
+1746829638 source:c:\users\artor\desktop\programacion\chinelero pococlero\chinelero.pococlero\funciones.cpp
 	<iostream>
-	"funcion.h"
+	<cstring>
+	"Funciones.h"
+	"Fecha.h"
+	"Peliculas.h"
+	"Sala.h"
+	"Venta.h"
 
 1746822500 c:\users\artor\desktop\programacion\chinelero pococlero\chinelero.pococlero\funcion.h
 
-1746823162 c:\users\artor\desktop\programacion\chinelero pococlero\chinelero.pococlero\funciones.h
+1746827949 c:\users\artor\desktop\programacion\chinelero pococlero\chinelero.pococlero\funciones.h
 	<iostream>
 	<cstring>
 	<cstdio>
+
+1746826084 c:\users\artor\desktop\programacion\chinelero pococlero\chinelero.pococlero\fecha.h
+	<iostream>
+
+1746829429 c:\users\artor\desktop\programacion\chinelero pococlero\chinelero.pococlero\peliculas.h
+	<iostream>
+	"Fecha.h"
+
+1746829810 c:\users\artor\desktop\programacion\chinelero pococlero\chinelero.pococlero\sala.h
+	<iostream>
+
+1746825772 c:\users\artor\desktop\programacion\chinelero pococlero\chinelero.pococlero\venta.h
+	<iostream>
 

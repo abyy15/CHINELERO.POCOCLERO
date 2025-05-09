@@ -1,7 +1,25 @@
 #include <iostream>
+#include <cstring>
 #include "Funciones.h"
+#include "Fecha.h"
+#include "Peliculas.h"
+#include "Sala.h"
+#include "Venta.h"
 
 using namespace std;
+
+void cargarCadena(char *palabra, int tamano){
+    int i=0;
+    fflush(stdin);
+    for (i=0; i<tamano; i++){
+        palabra[i]=cin.get();
+        if (palabra[i]=='\n'){
+            break;
+        }
+    }
+    palabra[i]='\0';
+    fflush(stdin);
+}
 
 void menu (){
     int eleccionUsuario = mostrarMenuPrincipal();
@@ -29,7 +47,7 @@ void switchMenu(int eleccion){
     while (true){
         switch (eleccion){
             case 1: /// OPCIONES PAEA PELICULAS ///
-                //peliculas();
+                peliculas();
                 system("pause"); return;
 
             case 2: /// OPCIONES PARA SALAS ///
@@ -51,3 +69,10 @@ void switchMenu(int eleccion){
         }
     }
 }
+
+void peliculas(){
+    ArchivoSala ASala("Sala.dat");
+    ASala.listarTodos();
+}
+
+

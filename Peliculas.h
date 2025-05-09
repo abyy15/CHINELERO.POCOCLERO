@@ -1,16 +1,14 @@
 #pragma once
 #include <iostream>
-#include <cstring>
-#include <cstdio>
-
+#include "Fecha.h"
 using namespace std;
 
 class Pelicula {
     private:
         int id;
-        char nombre\[50];
-        char director\[50];
-        char genero\[30];
+        char nombre [50];
+        char director [50];
+        char genero [30];
         int clasificacion; // 1: ATP, 2: +14, 3: +18
         Fecha fechaEstreno; // Objeto Fecha
     public:
@@ -18,24 +16,19 @@ class Pelicula {
             cout << "ID de la película: ";
             cin >> id;
             cin.ignore();
-
             cout << "Nombre de la película: ";
-            cin.getline(nombre, 50);
-
+            cargarCadena(nombre,50);
             cout << "Director (Apellido y Nombre): ";
-            cin.getline(director, 50);
-
+            cargarCadena(director,50);
             cout << "Género: ";
-            cin.getline(genero, 30);
-
+            cargarCadena(genero, 30);
             cout << "Clasificación (1: ATP, 2: +14, 3: +18): ";
             cin >> clasificacion;
-
             cout << "Fecha de estreno:\n";
             fechaEstreno.cargar();
         }
 
-        void mostrar() const {
+        void mostrar() {
             cout << "ID: " << id << endl;
             cout << "Nombre: " << nombre << endl;
             cout << "Director: " << director << endl;
@@ -54,12 +47,12 @@ class Pelicula {
         }
 
         // GETTERS
-        int getId() const { return id; }
-        const char* getNombre() const { return nombre; }
-        const char* getDirector() const { return director; }
-        const char* getGenero() const { return genero; }
-        int getClasificacion() const { return clasificacion; }
-        Fecha getFechaEstreno() const { return fechaEstreno; }
+        int getId() { return id; }
+        char* getNombre() { return nombre; }
+        char* getDirector() { return director; }
+        char* getGenero() { return genero; }
+        int getClasificacion() { return clasificacion; }
+        Fecha getFechaEstreno() { return fechaEstreno; }
 
         //SETTERS
         void setId(int _id) { id = _id; }
@@ -96,7 +89,7 @@ class ArchivoPelicula {
         fread(&reg, sizeof(Pelicula), 1, p);
         fclose(p);
         return reg;
-    }
+        }
 
         bool modificar(const Pelicula& p, int pos) {
             FILE* f = fopen(nombreArchivo, "rb+");
@@ -130,7 +123,7 @@ class ArchivoPelicula {
             fclose(f);
         }
 
-        int buscarPorID(int idBuscado) { //INVERSION A FUTURO
+        int buscarPorID(int idBuscado) { //imprimir bitcoin
             Pelicula p;
             FILE* f = fopen(nombreArchivo, "rb");
             if (f == nullptr) return -1;
