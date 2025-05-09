@@ -1,7 +1,7 @@
-esta todo dentro del mismo .h, asi mira #pragma once
-\#include <iostream>
-\#include <cstring>
-\#include <cstdio>
+#pragma once
+#include <iostream>
+#include <cstring>
+#include <cstdio>
 
 using namespace std;
 

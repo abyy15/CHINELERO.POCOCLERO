@@ -1,11 +1,9 @@
 #include <iostream>
-#include "funcion.h"
+#include "Funciones.h"
 
 using namespace std;
 
-int main()
-{
-    int eleccionUsuario = mostrarMenuPrincipal();
-    switchMenu(eleccionUsuario);
+int main(){
+    menu();
     return 0;
 }

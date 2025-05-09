@@ -1,11 +1,16 @@
 # depslib dependency file v1.0
-1746543671 source:c:\users\artor\desktop\programacion\chinelero pococlero\chinelero.pococlero\main.cpp
+1746823181 source:c:\users\artor\desktop\programacion\chinelero pococlero\chinelero.pococlero\main.cpp
+	<iostream>
+	"Funciones.h"
+
+1746543889 source:c:\users\artor\desktop\programacion\chinelero pococlero\chinelero.pococlero\funciones.cpp
 	<iostream>
 	"funcion.h"
 
-1746543184 source:c:\users\artor\desktop\programacion\chinelero pococlero\chinelero.pococlero\funciones.cpp
-	<iostream>
-	"funcion.h"
+1746822500 c:\users\artor\desktop\programacion\chinelero pococlero\chinelero.pococlero\funcion.h
 
-1746543524 c:\users\artor\desktop\programacion\chinelero pococlero\chinelero.pococlero\funcion.h
+1746823162 c:\users\artor\desktop\programacion\chinelero pococlero\chinelero.pococlero\funciones.h
+	<iostream>
+	<cstring>
+	<cstdio>
 

@@ -1,17 +1,21 @@
 #include <iostream>
-#include "funcion.h"
+#include "Funciones.h"
 
 using namespace std;
 
+void menu (){
+    int eleccionUsuario = mostrarMenuPrincipal();
+    switchMenu(eleccionUsuario);
+}
 
 int mostrarMenuPrincipal(){
     int eleccion;
     cout << "================================" << endl;
     cout << "======CHINELERO - POCOCLERO=====" << endl;
     cout << "================================" << endl;
-    cout << "(1) Primer opcion jaja" << endl;
-    cout << "(2) Segunda opcion jaja" << endl;
-    cout << "(3) Tercera opcion jaja" << endl;
+    cout << "(1) Peliculas" << endl;
+    cout << "(2) Salas" << endl;
+    cout << "(3) Ventas" << endl;
     cout << "================================" << endl;
     cout << "(0) SALIR." << endl;
     cout << "================================" << endl;
@@ -21,43 +25,29 @@ int mostrarMenuPrincipal(){
 }
 
 void switchMenu(int eleccion){
+    system("cls");
     while (true){
-        switch (eleccion)
-        {
-        case 1:
-            /// PRIMERA OPCION ///
-            system("cls");
-            cout << "Eligio la primera opcion." << endl;
-            system("pause");
-            return;
+        switch (eleccion){
+            case 1: /// OPCIONES PAEA PELICULAS ///
+                //peliculas();
+                system("pause"); return;
 
-        case 2:
-            system("cls");
-            /// SEGUNDA OPCION ///
-            cout << "Eligio la segunda opcion." << endl;
-            system("pause");
-            return;
+            case 2: /// OPCIONES PARA SALAS ///
+                //salas();
+                system("pause"); return;
 
-        case 3:
-            system("cls");
-            cout << "Eligio la tercera opcion." << endl;
-            system("pause");
-            /// TERCERA OPCION ///
-            return;
+            case 3: /// OPCIONES PARA VENTAS ///
+                //ventas();
+                system("pause"); return;
 
-        /// CASO PARA SALIR ///
-        case 0:
-            return;
+            case 0: /// SALIR ///
+                return;
 
-///     ///////////////////////
-
-        default:
-            system("cls");
-            cout << "Ingrese una opcion valida." << endl;
-            system("pause");
-            system("cls");
-            eleccion = mostrarMenuPrincipal();
-            break;
+            default:
+                cout << "Ingrese una opcion valida." << endl;
+                system("pause"); system("cls");
+                eleccion = mostrarMenuPrincipal();
+                break;
         }
     }
 }
