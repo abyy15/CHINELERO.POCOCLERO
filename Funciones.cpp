@@ -31,7 +31,7 @@ void menu (){
                 break;
 
             case 2: /// OPCIONES PARA SALAS ///
-                //salas();
+                salas();
                 system("pause"); return;
 
             case 3: /// OPCIONES PARA VENTAS ///
@@ -110,3 +110,6 @@ int menuPelicula (){
     return opcion;
 }
 
+void salas(){
+
+}
