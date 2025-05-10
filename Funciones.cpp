@@ -111,5 +111,13 @@ int menuPelicula (){
 }
 
 void salas(){
+}
 
+int menuSalas(){
+}
+
+void venta (){
+}
+
+int menuVenta(){
 }
