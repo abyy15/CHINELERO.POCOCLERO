@@ -6,9 +6,9 @@ using namespace std;
 class Pelicula {
     private:
         int id;
-        char nombre [50];
-        char director [50];
-        char genero [30];
+        char nombre [100];
+        char director [100];
+        char genero [100];
         int clasificacion; // 1: ATP, 2: +14, 3: +18
         Fecha fechaEstreno; // Objeto Fecha
     public:
@@ -17,23 +17,25 @@ class Pelicula {
             cin >> id;
             cin.ignore();
             cout << "Nombre de la película: ";
-            cargarCadena(nombre,50);
+            cargarCadena(nombre, 99);
             cout << "Director (Apellido y Nombre): ";
-            cargarCadena(director,50);
-            cout << "Género: ";
-            cargarCadena(genero, 30);
-            cout << "Clasificación (1: ATP, 2: +14, 3: +18): ";
+            cargarCadena(director, 99);
+            cout << "Genero: ";
+            cargarCadena(genero, 99);
+            cout << "Clasificacion (1: ATP, 2: +14, 3: +18): ";
             cin >> clasificacion;
             cout << "Fecha de estreno:\n";
             fechaEstreno.cargar();
         }
 
+        bool cargarConValidacion();
+
         void mostrar() {
             cout << "ID: " << id << endl;
             cout << "Nombre: " << nombre << endl;
             cout << "Director: " << director << endl;
-            cout << "Género: " << genero << endl;
-            cout << "Clasificación: ";
+            cout << "Genero: " << genero << endl;
+            cout << "Clasificacion: ";
             switch (clasificacion) {
                 case 1: cout << "ATP"; break;
                 case 2: cout << "Mayores de 14"; break;
@@ -66,10 +68,10 @@ class Pelicula {
 
 class ArchivoPelicula {
     private:
-        char nombreArchivo[50];
+        char nombreArchivo[100];
     public:
         ArchivoPelicula(const char* nombre) {
-            strncpy(nombreArchivo, nombre, 49);
+            strncpy(nombreArchivo, nombre, 99);
             nombreArchivo[49] = '\0';
         }
 
@@ -102,11 +104,13 @@ class ArchivoPelicula {
 
         int contarRegistros() {
             FILE* f = fopen(nombreArchivo, "rb");
-            if (f == nullptr) return 0;
+            if (f == nullptr) {cout << "SE ABRIO MAL EL ARCHIVO EN contarRegistros" << endl; return 0;}
             fseek(f, 0, SEEK_END);
             int tam = ftell(f);
             fclose(f);
-            return tam / sizeof(Pelicula);
+            int cantidad = 0;
+            cantidad = tam / (sizeof (Pelicula));
+            return cantidad; /// PARECE ESTAR RETORNANDO 0. Testear despues.
         }
 
         void listarTodos() {
@@ -140,3 +144,55 @@ class ArchivoPelicula {
             return -1; // no encontrado
         }
 };
+
+bool Pelicula :: cargarConValidacion(){
+    ArchivoPelicula archivoPel("archivo/Peliculas.dat");
+    int cantidadRegistros = 0;
+    cantidadRegistros = archivoPel.contarRegistros();
+    cout << "Los registros contados son: " << cantidadRegistros << endl;
+    id = cantidadRegistros + 1;
+    cout << "La ID sera: " << id << endl;
+    cout << "NOMBRE DE LA PELICULA: ";
+    cargarCadena(nombre, 100);
+    while (strlen(nombre) == 0){
+        system("cls");
+        cout << "La pelicula debe contener un nombre. " << endl;
+        system("pause");
+        system("cls");
+        cout << "NOMBRE DE LA PELICULA: ";
+        cargarCadena(nombre, 100);
+    }
+    cout << "DIRECTOR: ";
+    cargarCadena(director, 100);
+    while (strlen(director) == 0){
+        system("cls");
+        cout << "La pelicula debe tener un director. " << endl;
+        system("pause");
+        system("cls");
+        cout << "DIRECTOR: ";
+        cargarCadena(director, 100);
+    }
+    cout << "GENERO: ";
+    cargarCadena(genero, 100);
+    while (director == ""){
+        system("cls");
+        cout << "La pelicula debe tener un genero. " << endl;
+        system("pause");
+        system("cls");
+        cout << "GENERO: ";
+        cargarCadena(genero, 100);
+    }
+    cout << "CLASIFICACION (1: ATP, 2: +14, 3: +18): ";
+    cin >> clasificacion;
+    while (clasificacion < 1 || clasificacion > 3){
+        system("cls");
+        cout << "Ingrese una clasificacion valida. " << endl;
+        system("pause");
+        system("cls");
+        cout << "CLASIFICACION (1: ATP, 2: +14, 3: +18):";
+        cin >> clasificacion;
+    }
+    cout << "FECHA DE ESTRENO: ";
+    fechaEstreno.cargar();
+    return true;
+}

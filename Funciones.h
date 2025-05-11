@@ -10,10 +10,20 @@ int mostrarMenuPrincipal();
 /// CARGAR CADENA XD ///
 void cargarCadena(char *palabra, int tamano);
 
-/// OPCIONES PRINCIPALES ///
+/// PELICULA ///
 void pelicula();
 int menuPelicula ();
-void salas()
-int menuSalas(){}
-void venta (){}
-int menuVenta(){}
+void crearPelicula();
+void listarPeliculas(); ///Lista TODAS las peliculas sin filtrar
+void modificarPelicula();
+void borrarPelicula();
+    /// MENU LISTAR PELICULAS ///
+    void menuListarPelicula(); ///Muestra un menu para filtrar segun diferentes condiciones
+
+/// SALAS ///
+void salas();
+int menuSalas();
+
+/// VENTAS ///
+void venta();
+int menuVenta();

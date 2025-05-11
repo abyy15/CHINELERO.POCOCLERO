@@ -21,6 +21,9 @@ void cargarCadena(char *palabra, int tamano){
     fflush(stdin);
 }
 
+
+/// ////////////////////// MENU PRINCIPAL //////////////////////
+
 void menu (){
     while (true){
         system("cls");
@@ -32,11 +35,11 @@ void menu (){
 
             case 2: /// OPCIONES PARA SALAS ///
                 salas();
-                system("pause"); return;
+                break;
 
             case 3: /// OPCIONES PARA VENTAS ///
-                //ventas();
-                system("pause"); return;
+                venta();
+                break;
 
             case 0: /// SALIR ///
                 return;
@@ -66,22 +69,30 @@ int mostrarMenuPrincipal(){
     return eleccion;
 }
 
+
+/// ////////////////////// PELICULAS //////////////////////
+
+
 void pelicula (){
     system("cls");
     while (true){
         int eleccion = menuPelicula ();
         switch (eleccion){
             case 1: // CREAR PELICULA
-                //crearPelicula();
+                crearPelicula();
                 break;
             case 2: // LISTAR PELICULAS
-                //listarPelicula();
+                system("cls");
+                listarPeliculas();
+                system("pause");
+                system("cls");
+                /// menuListarPelicula();
                 break;
             case 3: // MODIFICAR PELICULAS
-                //modificarPelicula();
+                /// modificarPelicula();
                 break;
             case 4: // BORRAR PELICULA
-                //borrarPelicula();
+                /// borrarPelicula();
                 break;
             case 0: // SALIR
                 return;
@@ -110,14 +121,106 @@ int menuPelicula (){
     return opcion;
 }
 
-void salas(){
+void crearPelicula(){
+    Pelicula objetoPelicula;
+    ArchivoPelicula archivoPel("archivo/Peliculas.dat");
+    if (objetoPelicula.cargarConValidacion()){archivoPel.guardar(objetoPelicula);}
+    else {cout << "Se ha producido un error al grabar el registro. " << endl; system("pause");}
 }
 
+void listarPeliculas(){
+    ArchivoPelicula archivoPel("archivo/Peliculas.dat");
+    archivoPel.listarTodos();
+}
+
+void salas(){
+    system("cls");
+    while (true){
+        int eleccion = menuSalas();
+        switch (eleccion){
+            case 1: // CREAR SALA
+                //crearSala();
+                break;
+            case 2: // LISTAR SALA
+                //listarSala();
+                break;
+            case 3: // MODIFICAR SALA
+                //modificarSala();
+                break;
+            case 4: // BORRAR SALA
+                //borrarSala();
+                break;
+            case 0: // SALIR
+                return;
+            default: // OPCION INCORRECTA
+                cout << "Ingrese una opcion correcta. " << endl ;
+                system ("pause"); system ("cls");
+                break;
+        }
+    }
+}
+
+
+/// ////////////////////// SALAS //////////////////////
+
+
 int menuSalas(){
+    int opcion;
+    cout << "=========================================" << endl;
+    cout << "                  SALAS                  " << endl;
+    cout << "=========================================" << endl;
+    cout << "1- Crear Sala" << endl;
+    cout << "2- Listar Sala" << endl;
+    cout << "3- Modificar Sala" << endl;
+    cout << "4- Borrar Sala" << endl;
+    cout << "=========================================" << endl;
+    cout << "0- Salir" << endl;
+    cout << "=========================================" << endl;
+    cout << "Elija una opcion: ";
+    cin >> opcion;
+    return opcion;
 }
 
 void venta (){
+    system("cls");
+    while (true){
+        int eleccion = menuSalas();
+        switch (eleccion){
+            case 1: // CREAR VENTA
+                //crearVenta();
+            case 2: // LISTAR VENTA
+                break;
+                //listarVenta();
+                break;
+            case 3: // MODIFICAR VENTA
+                //modificarVenta();
+                break;
+            case 4: // BORRAR VENTA
+                //borrarVenta();
+                break;
+            case 0: // SALIR
+                return;
+            default: // OPCION INCORRECTA
+                cout << "Ingrese una opcion correcta. " << endl ;
+                system ("pause"); system ("cls");
+                break;
+        }
+    }
 }
 
 int menuVenta(){
+    int opcion;
+    cout << "=========================================" << endl;
+    cout << "                  VENTAS                 " << endl;
+    cout << "=========================================" << endl;
+    cout << "1- Crear Venta" << endl;
+    cout << "2- Listar Ventas" << endl;
+    cout << "3- Modificar Venta" << endl;
+    cout << "4- Borrar Venta" << endl;
+    cout << "=========================================" << endl;
+    cout << "0- Salir" << endl;
+    cout << "=========================================" << endl;
+    cout << "Elija una opcion: ";
+    cin >> opcion;
+    return opcion;
 }
