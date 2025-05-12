@@ -19,14 +19,35 @@ class Fecha{
         _anio = anio;
     }
 
-    /// CARGAR ///
+    /// CARGAR CON VALIDACION ///
+
+    bool esBisiesto(int anio) { return (anio % 4 == 0 && anio % 100 != 0) || (anio % 400 == 0);}
+
+    bool esFechaValida() {
+        if (_anio < 1) return false;
+        if (_mes < 1 || _mes > 12) return false;
+
+        int diasPorMes[] = { 0,31,28,31,30,31,30,31,31,30,31,30,31 };
+
+        if (_mes == 2 && esBisiesto(_anio)) {
+            if (_dia < 1 || _dia > 29) return false;
+        } else {
+            if (_dia < 1 || _dia > diasPorMes[_mes]) return false;
+        }
+    return true;
+    }
+
     void cargar() {
+        do {
         cout << "Ingrese el dia: ";
         cin >> _dia;
         cout << "Ingrese el mes: ";
         cin >> _mes;
         cout << "Ingrese el anio: ";
         cin >> _anio;
+        if (!esFechaValida()) { system ("cls"); cout << "Fecha invalida, intente de nuevo." << endl;}
+
+        } while (!esFechaValida());
     }
 
     /// MOSTRAR ///

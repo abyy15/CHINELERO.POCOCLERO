@@ -149,7 +149,7 @@ bool Pelicula :: cargarConValidacion(){
     ArchivoPelicula archivoPel("archivo/Peliculas.dat");
     int cantidadRegistros = 0;
     cantidadRegistros = archivoPel.contarRegistros();
-    cout << "Los registros contados son: " << cantidadRegistros << endl;
+    //cout << "Los registros contados son: " << cantidadRegistros << endl;
     id = cantidadRegistros + 1;
     cout << "La ID sera: " << id << endl;
     cout << "NOMBRE DE LA PELICULA: ";

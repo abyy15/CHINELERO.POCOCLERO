@@ -124,7 +124,12 @@ int menuPelicula (){
 void crearPelicula(){
     Pelicula objetoPelicula;
     ArchivoPelicula archivoPel("archivo/Peliculas.dat");
-    if (objetoPelicula.cargarConValidacion()){archivoPel.guardar(objetoPelicula);}
+    system("cls");
+    if (objetoPelicula.cargarConValidacion()){
+        archivoPel.guardar(objetoPelicula);
+        cout << "SE GUARDO CON EXITO!" << endl;
+        system ("cls");
+    }
     else {cout << "Se ha producido un error al grabar el registro. " << endl; system("pause");}
 }
 
