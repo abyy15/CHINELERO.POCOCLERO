@@ -46,7 +46,6 @@ class Pelicula {
             cout << endl;
             cout << "Fecha de estreno: ";
             fechaEstreno.mostrar();
-            cout << endl;
             cout << "Estado: " << (estado ? "Activo" : "Desactivado") << endl;
         }
 
@@ -145,6 +144,91 @@ class ArchivoPelicula {
             }
             fclose(f);
             return -1; // no encontrado
+        }
+
+        int buscarPorNombre(const char* nombreBuscado) {
+            Pelicula p;
+            FILE* f = fopen(nombreArchivo, "rb");
+            if (f == nullptr) return -1;
+
+            int pos = 0;
+            while (fread(&p, sizeof(Pelicula), 1, f) == 1) {
+                if (strcasecmp(p.getNombre(), nombreBuscado) == 0) {  // compara sin importar may/min
+                    fclose(f);
+                    return pos;
+                }
+                pos++;
+            }
+            fclose(f);
+            return -1;  // no encontrado
+        }
+
+        int buscarPorDirector(const char* directorBuscado) {
+            Pelicula p;
+            FILE* f = fopen(nombreArchivo, "rb");
+            if (f == nullptr) return -1;
+
+            int pos = 0;
+            while (fread(&p, sizeof(Pelicula), 1, f) == 1) {
+                if (strcasecmp(p.getDirector(), directorBuscado) == 0) {  // o _stricmp en Windows
+                    fclose(f);
+                    return pos;
+                }
+                pos++;
+            }
+            fclose(f);
+            return -1;  // no encontrado
+        }
+
+        int buscarPorGenero(const char* generoBuscado) {
+            Pelicula p;
+            FILE* f = fopen(nombreArchivo, "rb");
+            if (f == nullptr) return -1;
+
+            int pos = 0;
+            while (fread(&p, sizeof(Pelicula), 1, f) == 1) {
+                if (strcasecmp(p.getGenero(), generoBuscado) == 0) {  // o _stricmp en Windows
+                    fclose(f);
+                    return pos;
+                }
+                pos++;
+            }
+            fclose(f);
+            return -1;  // no encontrado
+        }
+
+        int buscarPorClasificacion(int clasificacionBuscada) {
+            Pelicula p;
+            FILE* f = fopen(nombreArchivo, "rb");
+            if (f == nullptr) return -1;
+
+            int pos = 0;
+            while (fread(&p, sizeof(Pelicula), 1, f) == 1) {
+                if (p.getClasificacion() == clasificacionBuscada) {
+                    fclose(f);
+                    return pos;
+                }
+                pos++;
+            }
+            fclose(f);
+            return -1;  // no encontrado
+        }
+
+        int buscarPorFechaEstreno(const Fecha& fechaBuscada) {
+            Pelicula p;
+            FILE* f = fopen(nombreArchivo, "rb");
+            if (f == nullptr) return -1;
+
+            int pos = 0;
+            while (fread(&p, sizeof(Pelicula), 1, f) == 1) {
+                if (p.getFechaEstreno() == fechaBuscada) {  // Asumimos que la clase Fecha tiene un operador de comparación ==
+                    fclose(f);
+                    return pos;
+                }
+                pos++;
+            }
+            fclose(f);
+            return -1;  // no encontrado
         }
 };
 

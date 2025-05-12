@@ -87,7 +87,10 @@ void pelicula (){
                 modificarPelicula();
                 break;
             case 4: // BORRAR PELICULA
-                borrarPelicula();
+                desabilitarPelicula();
+                break;
+            case 5: // ACTIVAR PELICULA
+                activarPelicula();
                 break;
             case 0: // SALIR
                 return;
@@ -107,7 +110,8 @@ int menuPelicula (){
     cout << "1- Crear Pelicula" << endl;
     cout << "2- Listar Peliculas" << endl;
     cout << "3- Modificar Pelicula" << endl;
-    cout << "4- Borrar Pelicula" << endl;
+    cout << "4- Desabilitar Pelicula" << endl;
+    cout << "5- Activar Pelicula" << endl;
     cout << "=========================================" << endl;
     cout << "0- Salir" << endl;
     cout << "=========================================" << endl;
@@ -154,11 +158,11 @@ void modificarPelicula(){
     system ("cls");
 }
 
-void borrarPelicula(){
+void desabilitarPelicula(){
     system("cls");
     ArchivoPelicula archivo("archivo/Peliculas.dat");
     int idBuscado;
-    cout << "Ingrese el ID de la pelicula a modificar: ";
+    cout << "Ingrese el ID de la pelicula a desabilitar: ";
     cin >> idBuscado;
     int pos = archivo.buscarPorID(idBuscado);
     if (pos == -1) {
@@ -168,20 +172,59 @@ void borrarPelicula(){
     Pelicula peli = archivo.leerRegistro(pos);
     cout << "Pelicula encontrada: " << endl;
     peli.mostrar();
-    cout << endl;
-    cout << "¿Está seguro que desea eliminar/desactivar la película? S/N: ";
-    string seg;
-    cin >> seg;
+    if (peli.getEstado()){ /// SI LA PELICULA ESTA ACTIVA, SE PUEDE DESABILITAR.
+        cout << endl;
+        cout << "Esta seguro que desea eliminar/desactivar la pelicula? S/N: ";
+        string seg;
+        cin >> seg;
 
-    if (seg == "S" || seg == "s") {
-        peli.setEstado(false);  // Desactiva la película
-        ArchivoPelicula archivo("archivo/Peliculas.dat");
-        int pos = archivo.buscarPorID(peli.getId());
-        if (pos != -1) {
-            archivo.modificar(peli, pos);  // Guardar cambios en el archivo
+        if (seg == "S" || seg == "s") {
+            peli.setEstado(false);  // Desactiva la película
+            ArchivoPelicula archivo("archivo/Peliculas.dat");
+            int pos = archivo.buscarPorID(peli.getId());
+            if (pos != -1) {
+                archivo.modificar(peli, pos);  // Guardar cambios en el archivo
+            }
+            cout << "!La pelicula se desactivo correctamente!" << endl;
         }
-        cout << "¡La película se desactivó correctamente!" << endl;
+    } else cout << "La pelicula ya se encuentra desabilitada." << endl; /// CASO CONTRARIO, NO.
+    system ("pause");
+    system ("cls");
+}
+
+void activarPelicula(){
+    system("cls");
+    ArchivoPelicula archivo("archivo/Peliculas.dat");
+    int idBuscado;
+    cout << "Ingrese el ID de la pelicula a activar: ";
+    cin >> idBuscado;
+    int pos = archivo.buscarPorID(idBuscado);
+    if (pos == -1) {
+        cout << "No se encontró ninguna pelicula con ese ID." << endl;
+        return;
     }
+    Pelicula peli = archivo.leerRegistro(pos);
+    cout << "Pelicula encontrada: " << endl;
+    peli.mostrar();
+    if (peli.getEstado()) { /// SI LA PELICULA ESTA ACTIVA, NO SE PUEDE ACTIVAR.
+        cout << "La pelicula ya se encuentra activa." << endl;
+    } else {
+        cout << "Esta seguro que desea activar la pelicula? S/N: ";
+        string seg;
+        cin >> seg;
+
+        if (seg == "S" || seg == "s") {
+            peli.setEstado(true);  // activa la película
+            ArchivoPelicula archivo("archivo/Peliculas.dat");
+            int pos = archivo.buscarPorID(peli.getId());
+            if (pos != -1) {
+                archivo.modificar(peli, pos);  // Guardar cambios en el archivo
+            }
+            cout << "!La pelicula se activo correctamente!" << endl;
+        }
+    }
+    system ("pause");
+    system ("cls");
 }
 
 /// ////////////////////// LISTAR //////////////////////
@@ -195,22 +238,22 @@ void listarPeliculas() {
                 listarTodasLasPeliculas();
                 break;
             case 2: // POR ID
-                listarPeliculaPorID();
+                listarID();
                 break;
             case 3: // POR NOMBRE
-                listarPeliculaPorNombre();
+                listarNombre();
                 break;
             case 4: // POR DIRECTOR
-                listarPeliculaPorDirector();
+                listarDirector();
                 break;
             case 5: // POR GENERO
-                listarPeliculaPorGenero();
+                listarGenero();
                 break;
             case 6: // POR CLASIFICACION
-                listarPeliculaPorClasificacion();
+                listarClasificacion();
                 break;
             case 7: // POR FECHA DE ESTRENO
-                listarPeliculaPorFechaDeEstreno();
+                listarFechaDeEstreno();
                 break;
             case 0: // SALIR
                 return;
@@ -251,28 +294,141 @@ void listarTodasLasPeliculas(){
     archivoPel.listarTodos();
 }
 
-void listarPeliculaPorID() {
-    // Implementar lógica para buscar y mostrar una película por ID
+void listarID() {
+    system ("cls");
+    ArchivoPelicula archivo("archivo/Peliculas.dat");
+    int idBuscado;
+    cout << "=========================================" << endl;
+    cout << "               LISTAR POR ID             " << endl;
+    cout << "=========================================" << endl;
+    cout << "Ingrese la id a listar: " ;
+    cin >> idBuscado;
+
+    int pos = archivo.buscarPorID(idBuscado);
+    if (pos == -1) {
+        cout << "No se encontró ninguna pelicula con ese ID." << endl;
+        return;
+    }
+
+    Pelicula peli = archivo.leerRegistro(pos);
+    cout << "Pelicula encontrada: " << endl;
+    peli.mostrar();
+
 }
 
-void listarPeliculaPorNombre() {
-    // Implementar lógica para buscar y mostrar una película por nombre
+void listarNombre() {
+    system("cls");
+    ArchivoPelicula archivo("archivo/Peliculas.dat");
+    char nombre[100];
+    cout << "=========================================" << endl;
+    cout << "           LISTAR POR NOMBRE             " << endl;
+    cout << "=========================================" << endl;
+    cout << "Ingrese el nombre de la pelicula a buscar: ";
+    cargarCadena(nombre, 100);
+
+    int pos = archivo.buscarPorNombre(nombre);
+    if (pos == -1) {
+        cout << "No se encontró ninguna pelicula con ese nombre." << endl;
+        return;
+    }
+
+    Pelicula peli = archivo.leerRegistro(pos);
+    cout << "Pelicula encontrada:" << endl;
+    peli.mostrar();
 }
 
-void listarPeliculaPorDirector() {
-    // Implementar lógica para buscar y mostrar películas por director
+void listarDirector() {
+    system("cls");
+    ArchivoPelicula archivo("archivo/Peliculas.dat");
+    char director[100];
+
+    cout << "=========================================" << endl;
+    cout << "         LISTAR POR DIRECTOR             " << endl;
+    cout << "=========================================" << endl;
+    cout << "Ingrese el nombre del director: ";
+    cargarCadena(director, 100);
+
+    int pos = archivo.buscarPorDirector(director);
+    if (pos == -1) {
+        cout << "No se encontró ninguna película con ese director." << endl;
+        return;
+    }
+
+    Pelicula peli = archivo.leerRegistro(pos);
+    cout << "Pelicula encontrada:" << endl;
+    peli.mostrar();
 }
 
-void listarPeliculaPorGenero() {
-    // Implementar lógica para buscar y mostrar películas por género
+void listarGenero() {
+    system("cls");
+    ArchivoPelicula archivo("archivo/Peliculas.dat");
+    char genero[100];
+
+    cout << "=========================================" << endl;
+    cout << "           LISTAR POR GENERO             " << endl;
+    cout << "=========================================" << endl;
+    cout << "Ingrese el genero: ";
+    cargarCadena(genero, 100);
+
+    int pos = archivo.buscarPorGenero(genero);
+    if (pos == -1) {
+        cout << "No se encontró ninguna película con ese género." << endl;
+        return;
+    }
+
+    Pelicula peli = archivo.leerRegistro(pos);
+    cout << "Pelicula encontrada:" << endl;
+    peli.mostrar();
 }
 
-void listarPeliculaPorClasificacion() {
-    // Implementar lógica para buscar y mostrar películas por clasificación
+void listarClasificacion() {
+    system("cls");
+    ArchivoPelicula archivo("archivo/Peliculas.dat");
+    int clasificacionBuscada;
+
+    cout << "=========================================" << endl;
+    cout << "           LISTAR POR CLASIFICACION      " << endl;
+    cout << "=========================================" << endl;
+    cout << "Ingrese la clasificación (1: ATP, 2: +14, 3: +18): ";
+    cin >> clasificacionBuscada;
+
+    // Validar que la clasificación sea válida
+    while (clasificacionBuscada < 1 || clasificacionBuscada > 3) {
+        cout << "Clasificación inválida, ingrese nuevamente: ";
+        cin >> clasificacionBuscada;
+    }
+
+    int pos = archivo.buscarPorClasificacion(clasificacionBuscada);
+    if (pos == -1) {
+        cout << "No se encontró ninguna película con esa clasificación." << endl;
+        return;
+    }
+
+    Pelicula peli = archivo.leerRegistro(pos);
+    cout << "Pelicula encontrada:" << endl;
+    peli.mostrar();
 }
 
-void listarPeliculaPorFechaDeEstreno() {
-    // Implementar lógica para buscar y mostrar películas por fecha de estreno
+void listarFechaDeEstreno() {
+    system("cls");
+    ArchivoPelicula archivo("archivo/Peliculas.dat");
+    Fecha fechaBuscada;
+
+    cout << "=========================================" << endl;
+    cout << "           LISTAR POR FECHA DE ESTRENO  " << endl;
+    cout << "=========================================" << endl;
+    cout << "Ingrese la fecha de estreno (dd/mm/yyyy): ";
+    fechaBuscada.cargar();
+
+    int pos = archivo.buscarPorFechaEstreno(fechaBuscada);
+    if (pos == -1) {
+        cout << "No se encontró ninguna película con esa fecha de estreno." << endl;
+        return;
+    }
+
+    Pelicula peli = archivo.leerRegistro(pos);
+    cout << "Pelicula encontrada:" << endl;
+    peli.mostrar();
 }
 
 /// ////////////////////// SALAS //////////////////////
