@@ -11,6 +11,7 @@ class Pelicula {
         char genero [100];
         int clasificacion; // 1: ATP, 2: +14, 3: +18
         Fecha fechaEstreno; // Objeto Fecha
+        bool estado = true;
     public:
         /* void cargar() {
             cout << "ID de la pelicula: ";
@@ -30,7 +31,7 @@ class Pelicula {
 
         bool cargarConValidacion();
 
-        void mostrar() {
+        void mostrar(){
             cout << "ID: " << id << endl;
             cout << "Nombre: " << nombre << endl;
             cout << "Director: " << director << endl;
@@ -46,6 +47,7 @@ class Pelicula {
             cout << "Fecha de estreno: ";
             fechaEstreno.mostrar();
             cout << endl;
+            cout << "Estado: " << (estado ? "Activo" : "Desactivado") << endl;
         }
 
         // GETTERS
@@ -55,6 +57,7 @@ class Pelicula {
         char* getGenero() { return genero; }
         int getClasificacion() { return clasificacion; }
         Fecha getFechaEstreno() { return fechaEstreno; }
+        bool getEstado() { return estado; }
 
         //SETTERS
         void setId(int _id) { id = _id; }
@@ -63,7 +66,7 @@ class Pelicula {
         void setGenero(const char* _genero) { strncpy(genero, _genero, sizeof(genero)-1); }
         void setClasificacion(int _clasificacion) { clasificacion = _clasificacion; }
         void setFechaEstreno(const Fecha& _fechaEstreno) { fechaEstreno = _fechaEstreno; }
-
+        void setEstado(bool e) { estado = e; }
 };
 
 class ArchivoPelicula {
@@ -104,7 +107,7 @@ class ArchivoPelicula {
 
         int contarRegistros() {
             FILE* f = fopen(nombreArchivo, "rb");
-            if (f == nullptr) {cout << "SE ABRIO MAL EL ARCHIVO EN contarRegistros" << endl; return 0;}
+            if (f == nullptr) {/*cout << "SE ABRIO MAL EL ARCHIVO EN CONTAR REGISTROS" << endl;*/ return 0;}
             fseek(f, 0, SEEK_END);
             int tam = ftell(f);
             fclose(f);

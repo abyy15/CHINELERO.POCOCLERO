@@ -87,7 +87,7 @@ void pelicula (){
                 modificarPelicula();
                 break;
             case 4: // BORRAR PELICULA
-                /// borrarPelicula();
+                borrarPelicula();
                 break;
             case 0: // SALIR
                 return;
@@ -155,7 +155,33 @@ void modificarPelicula(){
 }
 
 void borrarPelicula(){
+    system("cls");
+    ArchivoPelicula archivo("archivo/Peliculas.dat");
+    int idBuscado;
+    cout << "Ingrese el ID de la pelicula a modificar: ";
+    cin >> idBuscado;
+    int pos = archivo.buscarPorID(idBuscado);
+    if (pos == -1) {
+        cout << "No se encontró ninguna pelicula con ese ID." << endl;
+        return;
+    }
+    Pelicula peli = archivo.leerRegistro(pos);
+    cout << "Pelicula encontrada: " << endl;
+    peli.mostrar();
+    cout << endl;
+    cout << "¿Está seguro que desea eliminar/desactivar la película? S/N: ";
+    string seg;
+    cin >> seg;
 
+    if (seg == "S" || seg == "s") {
+        peli.setEstado(false);  // Desactiva la película
+        ArchivoPelicula archivo("archivo/Peliculas.dat");
+        int pos = archivo.buscarPorID(peli.getId());
+        if (pos != -1) {
+            archivo.modificar(peli, pos);  // Guardar cambios en el archivo
+        }
+        cout << "¡La película se desactivó correctamente!" << endl;
+    }
 }
 
 /// ////////////////////// LISTAR //////////////////////
