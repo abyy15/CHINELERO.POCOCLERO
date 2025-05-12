@@ -14,11 +14,19 @@ void cargarCadena(char *palabra, int tamano);
 void pelicula();
 int menuPelicula ();
 void crearPelicula();
-void listarPeliculas(); ///Lista TODAS las peliculas sin filtrar
 void modificarPelicula();
 void borrarPelicula();
-    /// MENU LISTAR PELICULAS ///
-    void menuListarPelicula(); ///Muestra un menu para filtrar segun diferentes condiciones
+
+/// LISTAR PELICULAS ///
+void listarPeliculas(); ///Lista TODAS las peliculas sin filtrar
+int menuListarPelicula();
+void listarTodasLasPeliculas();
+void listarPeliculaPorID();
+void listarPeliculaPorNombre();
+void listarPeliculaPorDirector();
+void listarPeliculaPorGenero();
+void listarPeliculaPorClasificacion();
+void listarPeliculaPorFechaDeEstreno();
 
 /// SALAS ///
 void salas();

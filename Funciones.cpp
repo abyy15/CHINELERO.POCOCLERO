@@ -133,10 +133,96 @@ void crearPelicula(){
     else {cout << "Se ha producido un error al grabar el registro. " << endl; system("pause");}
 }
 
-void listarPeliculas(){
+void listarPeliculas() {
+    system("cls");
+    while (true) {
+        int eleccion = menuListarPelicula();
+        switch (eleccion) {
+            case 1: // LISTA TODAS
+                listarTodasLasPeliculas();
+                break;
+            case 2: // POR ID
+                listarPeliculaPorID();
+                break;
+            case 3: // POR NOMBRE
+                listarPeliculaPorNombre();
+                break;
+            case 4: // POR DIRECTOR
+                listarPeliculaPorDirector();
+                break;
+            case 5: // POR GENERO
+                listarPeliculaPorGenero();
+                break;
+            case 6: // POR CLASIFICACION
+                listarPeliculaPorClasificacion();
+                break;
+            case 7: // POR FECHA DE ESTRENO
+                listarPeliculaPorFechaDeEstreno();
+                break;
+            case 0: // SALIR
+                return;
+            default: // OPCION INCORRECTA
+                cout << "Ingrese una opcion correcta. " << endl;
+                system("pause");
+                system("cls");
+                break;
+        }
+        system("pause");
+        system("cls");
+    }
+}
+
+int menuListarPelicula (){
+    int opcion;
+    cout << "=========================================" << endl;
+    cout << "             LISTAR PELICULAS            " << endl;
+    cout << "=========================================" << endl;
+    cout << "1- Listar Todas las Peliculas" << endl;
+    cout << "2- Listar por ID" << endl;
+    cout << "3- Listar por Nombre" << endl;
+    cout << "4- Listar por Director" << endl;
+    cout << "5- Listar por Genero" << endl;
+    cout << "6- Listar por Clasificacion" << endl;
+    cout << "7- Listar por Fecha de Estreno" << endl;
+    cout << "=========================================" << endl;
+    cout << "0- Salir" << endl;
+    cout << "=========================================" << endl;
+    cout << "Elija una opcion: ";
+    cin >> opcion;
+    return opcion;
+}
+
+void listarTodasLasPeliculas(){
+    system("cls");
     ArchivoPelicula archivoPel("archivo/Peliculas.dat");
     archivoPel.listarTodos();
 }
+
+void listarPeliculaPorID() {
+    // Implementar lógica para buscar y mostrar una película por ID
+}
+
+void listarPeliculaPorNombre() {
+    // Implementar lógica para buscar y mostrar una película por nombre
+}
+
+void listarPeliculaPorDirector() {
+    // Implementar lógica para buscar y mostrar películas por director
+}
+
+void listarPeliculaPorGenero() {
+    // Implementar lógica para buscar y mostrar películas por género
+}
+
+void listarPeliculaPorClasificacion() {
+    // Implementar lógica para buscar y mostrar películas por clasificación
+}
+
+void listarPeliculaPorFechaDeEstreno() {
+    // Implementar lógica para buscar y mostrar películas por fecha de estreno
+}
+
+/// ////////////////////// SALAS //////////////////////
 
 void salas(){
     system("cls");
@@ -165,10 +251,6 @@ void salas(){
     }
 }
 
-
-/// ////////////////////// SALAS //////////////////////
-
-
 int menuSalas(){
     int opcion;
     cout << "=========================================" << endl;
@@ -185,6 +267,8 @@ int menuSalas(){
     cin >> opcion;
     return opcion;
 }
+
+/// ////////////////////// VENTA //////////////////////
 
 void venta (){
     system("cls");
