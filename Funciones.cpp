@@ -69,27 +69,22 @@ int mostrarMenuPrincipal(){
     return eleccion;
 }
 
-
 /// ////////////////////// PELICULAS //////////////////////
 
-
 void pelicula (){
-    system("cls");
     while (true){
+        system("cls");
         int eleccion = menuPelicula ();
         switch (eleccion){
             case 1: // CREAR PELICULA
                 crearPelicula();
                 break;
             case 2: // LISTAR PELICULAS
-                system("cls");
                 listarPeliculas();
-                system("pause");
-                system("cls");
                 /// menuListarPelicula();
                 break;
             case 3: // MODIFICAR PELICULAS
-                /// modificarPelicula();
+                modificarPelicula();
                 break;
             case 4: // BORRAR PELICULA
                 /// borrarPelicula();
@@ -132,6 +127,38 @@ void crearPelicula(){
     }
     else {cout << "Se ha producido un error al grabar el registro. " << endl; system("pause");}
 }
+
+void modificarPelicula(){
+    system("cls");
+    ArchivoPelicula archivo("archivo/Peliculas.dat");
+    int idBuscado;
+    cout << "Ingrese el ID de la pelicula a modificar: ";
+    cin >> idBuscado;
+    int pos = archivo.buscarPorID(idBuscado);
+    if (pos == -1) {
+        cout << "No se encontró ninguna pelicula con ese ID." << endl;
+        return;
+    }
+
+    Pelicula peli = archivo.leerRegistro(pos);
+    cout << "Pelicula encontrada: " << endl;
+    peli.mostrar();
+    cout << endl;
+    cout << "Ingrese los nuevos datos: " << endl;
+    peli.cargarConValidacion(); // asi o hacer una función específica que permita modificar campo por campo
+    peli.setId(idBuscado); // Asegura que conserve el mismo ID
+    if (archivo.modificar(peli, pos)) {
+        cout << "Pelicula modificada con éxito. " << endl;
+    } else { cout << "Error al modificar la pelicula. " << endl;}
+    system ("pause");
+    system ("cls");
+}
+
+void borrarPelicula(){
+
+}
+
+/// ////////////////////// LISTAR //////////////////////
 
 void listarPeliculas() {
     system("cls");

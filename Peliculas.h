@@ -12,11 +12,11 @@ class Pelicula {
         int clasificacion; // 1: ATP, 2: +14, 3: +18
         Fecha fechaEstreno; // Objeto Fecha
     public:
-        void cargar() {
-            cout << "ID de la película: ";
+        /* void cargar() {
+            cout << "ID de la pelicula: ";
             cin >> id;
             cin.ignore();
-            cout << "Nombre de la película: ";
+            cout << "Nombre de la pelicula: ";
             cargarCadena(nombre, 99);
             cout << "Director (Apellido y Nombre): ";
             cargarCadena(director, 99);
@@ -26,7 +26,7 @@ class Pelicula {
             cin >> clasificacion;
             cout << "Fecha de estreno:\n";
             fechaEstreno.cargar();
-        }
+        }*/
 
         bool cargarConValidacion();
 
@@ -151,7 +151,7 @@ bool Pelicula :: cargarConValidacion(){
     cantidadRegistros = archivoPel.contarRegistros();
     //cout << "Los registros contados son: " << cantidadRegistros << endl;
     id = cantidadRegistros + 1;
-    cout << "La ID sera: " << id << endl;
+    //cout << "La ID sera: " << id << endl;
     cout << "NOMBRE DE LA PELICULA: ";
     cargarCadena(nombre, 100);
     while (strlen(nombre) == 0){
