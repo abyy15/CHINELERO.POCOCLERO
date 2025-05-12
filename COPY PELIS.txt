@@ -1,0 +1,159 @@
+Toy Story
+John Lasseter
+Animación
+1
+22
+11
+1995
+
+Avengers: Endgame
+Anthony y Joe Russo
+Acción
+2
+25
+4
+2019
+
+El Padrino
+Francis Ford Coppola
+Crimen
+3
+24
+3
+1972
+
+Interestelar
+Christopher Nolan
+Ciencia Ficción
+2
+6
+11
+2014
+
+Coco
+Lee Unkrich
+Animación
+1
+27
+10
+2017
+
+Parásitos
+Bong Joon-ho
+Drama
+3
+30
+5
+2019
+
+Titanic
+James Cameron
+Romance
+2
+19
+12
+1997
+
+El Conjuro
+James Wan
+Terror
+3
+2
+8
+2013
+
+Matrix
+The Wachowskis
+Ciencia Ficción
+2
+31
+3
+1999
+
+Rápidos y Furiosos 7
+James Wan
+Acción
+2
+3
+4
+2015
+
+Gladiador
+Ridley Scott
+Acción
+2
+5
+5
+2000
+
+La La Land
+Damien Chazelle
+Musical
+1
+9
+12
+2016
+
+Inception
+Christopher Nolan
+Ciencia Ficción
+2
+16
+7
+2010
+
+The Dark Knight
+Christopher Nolan
+Acción
+2
+18
+7
+2008
+
+La Lista de Schindler
+Steven Spielberg
+Drama
+3
+30
+9
+1993
+
+Jurassic Park
+Steven Spielberg
+Aventura
+2
+11
+6
+1993
+
+The Matrix Reloaded
+The Wachowskis
+Acción
+2
+15
+5
+2003
+
+Forrest Gump
+Robert Zemeckis
+Drama
+2
+6
+7
+1994
+
+El Laberinto del Fauno
+Guillermo del Toro
+Fantástico
+3
+11
+10
+2006
+
+El Gran Lebowski
+Joel y Ethan Coen
+Comedia
+1
+6
+3
+1998
