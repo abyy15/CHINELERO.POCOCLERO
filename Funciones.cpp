@@ -896,6 +896,8 @@ void modCantButSala(){
     }
 }
 
+/// DESABILITAR / ACTIVAR SALA /// SIN CREAR PROPIEDAD ESTADO EN LA CLASE SALA
+
 /*void desabilitarSala(){
     system("cls");
     ArchivoPelicula archivo("archivo/Peliculas.dat");
@@ -928,9 +930,9 @@ void modCantButSala(){
     } else cout << "La pelicula ya se encuentra desabilitada." << endl; /// CASO CONTRARIO, NO.
     system ("pause");
     system ("cls");
-}
+}*/
 
-void activarSala(){
+/*void activarSala(){
     system("cls");
     ArchivoPelicula archivo("archivo/Peliculas.dat");
     int idBuscado;
