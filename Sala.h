@@ -11,10 +11,10 @@ class Sala {
 
     public:
         /// GETTERS ///
-        int getNumSala() const { return numSala; }
-        const char* getNombreSala() const { return nombreSala; }
-        int getTipoSala() const { return tipoSala; }
-        int getButacasDisponibles() const { return butacasDisponibles; }
+        int getNumSala() { return numSala; }
+        char* getNombreSala()  { return nombreSala; }
+        int getTipoSala() { return tipoSala; }
+        int getButacasDisponibles() { return butacasDisponibles; }
 
         /// SETTERS ///
         void setNumSala(int num) { numSala = num; }
@@ -47,6 +47,7 @@ class Sala {
             tipoDeSala (tipoSala, ts);
             cout << "Tipo de Sala: " << ts << endl ;
             cout << "Cantidad de Butacas Disponibles: " << butacasDisponibles ;
+            cout << endl;
 
         }
 
@@ -124,5 +125,22 @@ class ArchivoSala {
                 cout << "----------------------------\n";
             }
             fclose(f);
+        }
+
+        int buscarPorNum(int numBuscado) { //imprimir bitcoin 2.0
+            Sala s;
+            FILE* f = fopen(nombreArchivo, "rb");
+            if (f == nullptr) return -1;
+
+            int pos = 0;
+            while (fread(&s, sizeof(Sala), 1, f) == 1) {
+                if (s.getNumSala() == numBuscado) {
+                    fclose(f);
+                    return pos;
+                }
+                pos++;
+            }
+            fclose(f);
+            return -1; // no encontrado
         }
 };

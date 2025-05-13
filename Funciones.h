@@ -14,9 +14,18 @@ void cargarCadena(char *palabra, int tamano);
 void pelicula();
 int menuPelicula ();
 void crearPelicula();
-void modificarPelicula();
 void desabilitarPelicula();
 void activarPelicula();
+
+/// MODIFICAR PELICULAS ///
+void modificarPelicula();
+int menuModificarPeli();
+void modTodoPel();
+void modNombrePel();
+void modDirector();
+void modGenero();
+void modClasificacion();
+void modFechaDeEstreno();
 
 /// LISTAR PELICULAS ///
 void listarPeliculas(); ///Lista TODAS las peliculas sin filtrar
@@ -32,6 +41,19 @@ void listarFechaDeEstreno();
 /// SALAS ///
 void salas();
 int menuSalas();
+void crearSala();
+void listarSala();
+void activarSala();
+void desabilitarSala();
+
+/// MODIFICAR SALAS ///
+void modificarSala();
+int menuModificarSala();
+void modTodoSala();
+void modNumSala();
+void modNombreSala();
+void modTipoSala();
+void modCantButSala();
 
 /// VENTAS ///
 void venta();

@@ -49,6 +49,7 @@ class Fecha{
 
         void cargar() {
             do {
+            cout << endl;
             cout << "Ingrese el dia: ";
             cin >> _dia;
             cout << "Ingrese el mes: ";
@@ -62,7 +63,7 @@ class Fecha{
 
         /// MOSTRAR ///
         void mostrar() {
-            cout << "Fecha: " << _dia << "/" << _mes << "/" << _anio << endl;
+            cout << _dia << "/" << _mes << "/" << _anio << endl;
         }
 
         /// GETERS ///

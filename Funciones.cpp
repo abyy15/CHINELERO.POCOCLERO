@@ -132,7 +132,64 @@ void crearPelicula(){
     else {cout << "Se ha producido un error al grabar el registro. " << endl; system("pause");}
 }
 
+/// MODIFICAR PELICULAS
+
 void modificarPelicula(){
+   system("cls");
+    while (true) {
+        int eleccion = menuModificarPeli();
+        switch (eleccion) {
+            case 1: // MODIFICA TODO
+                modTodoPel();
+                break;
+            case 2:
+                modNombrePel();
+                break;
+            case 3:
+                modDirector();
+                break;
+            case 4:
+                modGenero();
+                break;
+            case 5:
+                modClasificacion();
+                break;
+            case 6:
+                modFechaDeEstreno();
+                break;
+            case 0: // SALIR
+                return;
+            default: // OPCION INCORRECTA
+                cout << "Ingrese una opcion correcta. " << endl;
+                system("pause");
+                system("cls");
+                break;
+        }
+        system("pause");
+        system("cls");
+    }
+}
+
+int menuModificarPeli(){
+    int opcion;
+    cout << "=========================================" << endl;
+    cout << "            MODIFICAR PELICULAS          " << endl;
+    cout << "=========================================" << endl;
+    cout << "1- Modificar todos los campos" << endl;
+    cout << "2- Modificar Nombre" << endl;
+    cout << "3- Modificar Director" << endl;
+    cout << "4- Modificar Genero" << endl;
+    cout << "5- Modificar Clasificacion" << endl;
+    cout << "6- Modificar Fecha de Estreno" << endl;
+    cout << "=========================================" << endl;
+    cout << "0- Salir" << endl;
+    cout << "=========================================" << endl;
+    cout << "Elija una opcion: ";
+    cin >> opcion;
+    return opcion;
+}
+
+void modTodoPel (){
     system("cls");
     ArchivoPelicula archivo("archivo/Peliculas.dat");
     int idBuscado;
@@ -152,11 +209,155 @@ void modificarPelicula(){
     peli.cargarConValidacion(); // asi o hacer una función específica que permita modificar campo por campo
     peli.setId(idBuscado); // Asegura que conserve el mismo ID
     if (archivo.modificar(peli, pos)) {
-        cout << "Pelicula modificada con éxito. " << endl;
+        cout << "Pelicula modificada con exito. " << endl;
     } else { cout << "Error al modificar la pelicula. " << endl;}
     system ("pause");
     system ("cls");
 }
+
+void modNombrePel() {
+    system("cls");
+    ArchivoPelicula archivo("archivo/Peliculas.dat");
+    int idBuscado;
+    cout << "Ingrese el ID de la pelicula a modificar: ";
+    cin >> idBuscado;
+    int pos = archivo.buscarPorID(idBuscado);
+    if (pos == -1) {
+        cout << "No se encontro ninguna pelicula con ese ID." << endl;
+        return;
+    }
+
+    Pelicula peli = archivo.leerRegistro(pos);
+    cout << "Nombre actual: " << peli.getNombre() << endl;
+
+    char nuevoNombre[50];
+    cout << "Ingrese el nuevo nombre: ";
+    cargarCadena(nuevoNombre, 50);
+    peli.setNombre(nuevoNombre);
+
+    if (archivo.modificar(peli, pos)) {
+        cout << "Nombre modificado con exito." << endl;
+    } else {
+        cout << "Error al modificar el nombre." << endl;
+    }
+}
+
+void modDirector() {
+    system("cls");
+    ArchivoPelicula archivo("archivo/Peliculas.dat");
+    int idBuscado;
+    cout << "Ingrese el ID de la pelicula a modificar: ";
+    cin >> idBuscado;
+    int pos = archivo.buscarPorID(idBuscado);
+    if (pos == -1) {
+        cout << "No se encontro ninguna pelicula con ese ID." << endl;
+        return;
+    }
+
+    Pelicula peli = archivo.leerRegistro(pos);
+    cout << "Director actual: " << peli.getDirector() << endl;
+
+    char nuevoDirector[50];
+    cout << "Ingrese el nuevo director: ";
+    cargarCadena(nuevoDirector, 50);
+    peli.setDirector(nuevoDirector);
+
+    if (archivo.modificar(peli, pos)) {
+        cout << "Director modificado con exito." << endl;
+    } else {
+        cout << "Error al modificar el director." << endl;
+    }
+}
+
+void modGenero() {
+    system("cls");
+    ArchivoPelicula archivo("archivo/Peliculas.dat");
+    int idBuscado;
+    cout << "Ingrese el ID de la pelicula a modificar: ";
+    cin >> idBuscado;
+    int pos = archivo.buscarPorID(idBuscado);
+    if (pos == -1) {
+        cout << "No se encontro ninguna pelicula con ese ID." << endl;
+        return;
+    }
+
+    Pelicula peli = archivo.leerRegistro(pos);
+    cout << "Genero actual: " << peli.getGenero() << endl;
+
+    char nuevoGenero[30];
+    cout << "Ingrese el nuevo genero: ";
+    cargarCadena(nuevoGenero, 30);
+    peli.setGenero(nuevoGenero);
+
+    if (archivo.modificar(peli, pos)) {
+        cout << "Genero modificado con exito." << endl;
+    } else {
+        cout << "Error al modificar el genero." << endl;
+    }
+}
+
+void modClasificacion() {
+    system("cls");
+    ArchivoPelicula archivo("archivo/Peliculas.dat");
+    int idBuscado;
+    cout << "Ingrese el ID de la pelicula a modificar: ";
+    cin >> idBuscado;
+    int pos = archivo.buscarPorID(idBuscado);
+    if (pos == -1) {
+        cout << "No se encontro ninguna pelicula con ese ID." << endl;
+        return;
+    }
+
+    Pelicula peli = archivo.leerRegistro(pos);
+    cout << "Clasificacion actual: " << peli.getClasificacion() << endl;
+
+    int nuevaClasificacion;
+    cout << "Ingrese la nueva clasificacion (1: ATP, 2: +14, 3: +18): ";
+    cin >> nuevaClasificacion;
+    if (nuevaClasificacion >= 1 && nuevaClasificacion <= 3) {
+        peli.setClasificacion(nuevaClasificacion);
+    } else {
+        cout << "Clasificacion invalida. No se modifico." << endl;
+        return;
+    }
+
+    if (archivo.modificar(peli, pos)) {
+        cout << "Clasificacion modificada con exito." << endl;
+    } else {
+        cout << "Error al modificar la clasificacion." << endl;
+    }
+}
+
+void modFechaDeEstreno() {
+    system("cls");
+    ArchivoPelicula archivo("archivo/Peliculas.dat");
+    int idBuscado;
+    cout << "Ingrese el ID de la pelicula a modificar: ";
+    cin >> idBuscado;
+    int pos = archivo.buscarPorID(idBuscado);
+    if (pos == -1) {
+        cout << "No se encontro ninguna pelicula con ese ID." << endl;
+        return;
+    }
+
+    Pelicula peli = archivo.leerRegistro(pos);
+    cout << "Fecha actual de estreno: ";
+    peli.getFechaEstreno().mostrar(); // o mostrarFecha() si lo tenes asi
+    cout << "Ingrese la nueva fecha:" ;
+
+    Fecha nuevaFecha;
+    nuevaFecha.cargar(); // asumimos que Fecha tiene metodo cargar()
+
+    peli.setFechaEstreno(nuevaFecha);
+
+    if (archivo.modificar(peli, pos)) {
+        cout << "Fecha de estreno modificada con exito." << endl;
+    } else {
+        cout << "Error al modificar la fecha." << endl;
+    }
+}
+
+/// DESABILITAR / ACTIVAR PELICULA
 
 void desabilitarPelicula(){
     system("cls");
@@ -200,7 +401,7 @@ void activarPelicula(){
     cin >> idBuscado;
     int pos = archivo.buscarPorID(idBuscado);
     if (pos == -1) {
-        cout << "No se encontró ninguna pelicula con ese ID." << endl;
+        cout << "No se encontro ninguna pelicula con ese ID." << endl;
         return;
     }
     Pelicula peli = archivo.leerRegistro(pos);
@@ -227,7 +428,7 @@ void activarPelicula(){
     system ("cls");
 }
 
-/// ////////////////////// LISTAR //////////////////////
+/// LISTAR
 
 void listarPeliculas() {
     system("cls");
@@ -306,7 +507,7 @@ void listarID() {
 
     int pos = archivo.buscarPorID(idBuscado);
     if (pos == -1) {
-        cout << "No se encontró ninguna pelicula con ese ID." << endl;
+        cout << "No se encontro ninguna pelicula con ese ID." << endl;
         return;
     }
 
@@ -328,7 +529,7 @@ void listarNombre() {
 
     int pos = archivo.buscarPorNombre(nombre);
     if (pos == -1) {
-        cout << "No se encontró ninguna pelicula con ese nombre." << endl;
+        cout << "No se encontro ninguna pelicula con ese nombre." << endl;
         return;
     }
 
@@ -350,7 +551,7 @@ void listarDirector() {
 
     int pos = archivo.buscarPorDirector(director);
     if (pos == -1) {
-        cout << "No se encontró ninguna película con ese director." << endl;
+        cout << "No se encontro ninguna pelicula con ese director." << endl;
         return;
     }
 
@@ -372,7 +573,7 @@ void listarGenero() {
 
     int pos = archivo.buscarPorGenero(genero);
     if (pos == -1) {
-        cout << "No se encontró ninguna película con ese género." << endl;
+        cout << "No se encontro ninguna pelicula con ese genero." << endl;
         return;
     }
 
@@ -400,7 +601,7 @@ void listarClasificacion() {
 
     int pos = archivo.buscarPorClasificacion(clasificacionBuscada);
     if (pos == -1) {
-        cout << "No se encontró ninguna película con esa clasificación." << endl;
+        cout << "No se encontro ninguna pelicula con esa clasificación." << endl;
         return;
     }
 
@@ -422,7 +623,7 @@ void listarFechaDeEstreno() {
 
     int pos = archivo.buscarPorFechaEstreno(fechaBuscada);
     if (pos == -1) {
-        cout << "No se encontró ninguna película con esa fecha de estreno." << endl;
+        cout << "No se encontro ninguna pelicula con esa fecha de estreno." << endl;
         return;
     }
 
@@ -439,16 +640,19 @@ void salas(){
         int eleccion = menuSalas();
         switch (eleccion){
             case 1: // CREAR SALA
-                //crearSala();
+                crearSala();
                 break;
             case 2: // LISTAR SALA
-                //listarSala();
+                listarSala();
                 break;
             case 3: // MODIFICAR SALA
-                //modificarSala();
+                modificarSala();
                 break;
-            case 4: // BORRAR SALA
-                //borrarSala();
+            case 4: // DESABILITAR/ELIMINAR SALA
+                //desabilitarSala();
+                break;
+            case 5: // ACTIVAR SALA
+                //activarSala();
                 break;
             case 0: // SALIR
                 return;
@@ -457,6 +661,7 @@ void salas(){
                 system ("pause"); system ("cls");
                 break;
         }
+        system("cls");
     }
 }
 
@@ -476,6 +681,289 @@ int menuSalas(){
     cin >> opcion;
     return opcion;
 }
+
+void crearSala(){
+    Sala objSala;
+    ArchivoSala archivoSala ("archivo/Salas.dat");
+    system("cls");
+    objSala.cargar();
+    archivoSala.guardar(objSala);
+    cout << "SE GUARDO CON EXITO!" << endl;
+    system ("cls");
+}
+
+void listarSala(){
+    system("cls");
+    ArchivoSala archivoSala("archivo/Salas.dat");
+    archivoSala.listarTodos();
+    system ("pause");
+    system ("cls");
+}
+
+/// MODIFICAR SALAS
+
+void modificarSala(){
+   system("cls");
+    while (true) {
+        int eleccion = menuModificarSala();
+        switch (eleccion) {
+            case 1: // MODIFICA TODO
+                modTodoSala();
+                break;
+            case 2:
+                modNumSala();
+                break;
+            case 3:
+                modNombreSala();
+                break;
+            case 4:
+                modTipoSala();
+                break;
+            case 5:
+                modCantButSala();
+                break;
+            case 0: // SALIR
+                return;
+            default: // OPCION INCORRECTA
+                cout << "Ingrese una opcion correcta. " << endl;
+                system("pause");
+                system("cls");
+                break;
+        }
+        system("pause");
+        system("cls");
+    }
+}
+
+int menuModificarSala(){
+    int opcion;
+    cout << "=========================================" << endl;
+    cout << "              MODIFICAR SALAS            " << endl;
+    cout << "=========================================" << endl;
+    cout << "1- Modificar todos los campos" << endl;
+    cout << "2- Modificar Numero" << endl;
+    cout << "3- Modificar Nombre" << endl;
+    cout << "4- Modificar Tipo" << endl;
+    cout << "5- Modificar Cantidad de Butacas Disponibles" << endl;
+    cout << "=========================================" << endl;
+    cout << "0- Salir" << endl;
+    cout << "=========================================" << endl;
+    cout << "Elija una opcion: ";
+    cin >> opcion;
+    return opcion;
+}
+
+void modTodoSala(){
+    system("cls");
+    ArchivoSala archivoSala("archivo/Salas.dat");
+    int numBuscado;
+    cout << "Ingrese el numero de la sala a modificar: ";
+    cin >> numBuscado;
+    int pos = archivoSala.buscarPorNum(numBuscado);
+    if (pos == -1) {
+        cout << "No se encontro ninguna sala con ese numero." << endl;
+        return;
+    }
+
+    Sala sala  = archivoSala.leerRegistro(pos);
+    cout << "Sala encontrada: " << endl;
+    sala.mostrar();
+    cout << endl;
+    cout << "Ingrese los nuevos datos: " << endl;
+    sala.cargar();
+    sala.setNumSala(numBuscado); // Asegura que conserve el mismo ID
+    if (archivoSala.modificar(sala, pos)) {
+        cout << "Sala modificada con exito. " << endl;
+    } else { cout << "Error al modificar la sala. " << endl;}
+    system ("pause");
+    system ("cls");
+}
+
+void modNumSala(){
+    system("cls");
+    ArchivoSala archivo("archivo/Salas.dat");
+    int numBuscado;
+    cout << "Ingrese el numero de la sala a modificar: ";
+    cin >> numBuscado;
+    int pos = archivo.buscarPorNum(numBuscado);
+    if (pos == -1) {
+        cout << "No se encontro ninguna sala con ese numero." << endl;
+        return;
+    }
+
+    Sala sala = archivo.leerRegistro(pos);
+    cout << "Numero actual: " << sala.getNumSala() << endl;
+
+    int nuevoNum;
+    cout << "Ingrese el nuevo numero: ";
+    cin >> nuevoNum;
+    sala.setNumSala(nuevoNum);
+
+    if (archivo.modificar(sala, pos)) {
+        cout << "Numero modificado con exito." << endl;
+    } else {
+        cout << "Error al modificar el numero." << endl;
+    }
+}
+
+void modNombreSala(){
+    system("cls");
+    ArchivoSala archivo("archivo/Salas.dat");
+    int numBuscado;
+    cout << "Ingrese el numero de la sala a modificar: ";
+    cin >> numBuscado;
+    int pos = archivo.buscarPorNum(numBuscado);
+    if (pos == -1) {
+        cout << "No se encontro ninguna sala con ese numero." << endl;
+        return;
+    }
+
+    Sala sala = archivo.leerRegistro(pos);
+    cout << "Nombre actual: " << sala.getNombreSala() << endl;
+
+    char nuevoNombre[50];
+    cout << "Ingrese el nuevo nombre: ";
+    cargarCadena(nuevoNombre, 50);
+    sala.setNombreSala(nuevoNombre);
+
+    if (archivo.modificar(sala, pos)) {
+        cout << "Nombre modificado con exito." << endl;
+    } else {
+        cout << "Error al modificar el nombre." << endl;
+    }
+}
+
+void modTipoSala(){
+    system("cls");
+    ArchivoSala archivo("archivo/Salas.dat");
+    int numBuscado;
+    cout << "Ingrese el numero de la sala a modificar: ";
+    cin >> numBuscado;
+    int pos = archivo.buscarPorNum(numBuscado);
+    if (pos == -1) {
+        cout << "No se encontro ninguna sala con ese numero." << endl;
+        return;
+    }
+
+    Sala sala = archivo.leerRegistro(pos);
+    char ts [30];
+    sala.tipoDeSala (sala.getTipoSala(), ts);
+    cout << "Tipo actual: " << ts << endl;
+
+    int nuevoTipo;
+    cout << "Ingrese el nuevo Tipo de Sala (1-Estandar 2- Premium 3- Confort Plus): ";
+    while (true){
+            cin >> nuevoTipo;
+            if (nuevoTipo > 3 || nuevoTipo < 1) {
+                system("cls");
+                cout << "Ingrese un numero valido. " << endl;
+                sala.menuSala (); }
+            else break;}
+    sala.setTipoSala(nuevoTipo);
+    if (archivo.modificar(sala, pos)) {
+        cout << "Tipo modificado con exito." << endl;
+    } else {
+        cout << "Error al modificar el tipo de sala." << endl;
+    }
+    system("pause");
+    system("cls");
+}
+
+void modCantButSala(){
+    system("cls");
+    ArchivoSala archivo("archivo/Salas.dat");
+    int numBuscado;
+    cout << "Ingrese el numero de la sala a modificar: ";
+    cin >> numBuscado;
+    int pos = archivo.buscarPorNum(numBuscado);
+    if (pos == -1) {
+        cout << "No se encontro ninguna sala con ese numero." << endl;
+        return;
+    }
+
+    Sala sala = archivo.leerRegistro(pos);
+    cout << "Cantidad actual de butacas disponibles: " << sala.getButacasDisponibles() << endl;
+
+    int nuevoNum;
+    cout << "Ingrese la nueva cantidad: ";
+    cin >> nuevoNum;
+    sala.setButacasDisponibles(nuevoNum);
+
+    if (archivo.modificar(sala, pos)) {
+        cout << "Cantidad modificada con exito." << endl;
+    } else {
+        cout << "Error al modificar la cantidad." << endl;
+    }
+}
+
+/*void desabilitarSala(){
+    system("cls");
+    ArchivoPelicula archivo("archivo/Peliculas.dat");
+    int idBuscado;
+    cout << "Ingrese el ID de la pelicula a desabilitar: ";
+    cin >> idBuscado;
+    int pos = archivo.buscarPorID(idBuscado);
+    if (pos == -1) {
+        cout << "No se encontró ninguna pelicula con ese ID." << endl;
+        return;
+    }
+    Pelicula peli = archivo.leerRegistro(pos);
+    cout << "Pelicula encontrada: " << endl;
+    peli.mostrar();
+    if (peli.getEstado()){ /// SI LA PELICULA ESTA ACTIVA, SE PUEDE DESABILITAR.
+        cout << endl;
+        cout << "Esta seguro que desea eliminar/desactivar la pelicula? S/N: ";
+        string seg;
+        cin >> seg;
+
+        if (seg == "S" || seg == "s") {
+            peli.setEstado(false);  // Desactiva la película
+            ArchivoPelicula archivo("archivo/Peliculas.dat");
+            int pos = archivo.buscarPorID(peli.getId());
+            if (pos != -1) {
+                archivo.modificar(peli, pos);  // Guardar cambios en el archivo
+            }
+            cout << "!La pelicula se desactivo correctamente!" << endl;
+        }
+    } else cout << "La pelicula ya se encuentra desabilitada." << endl; /// CASO CONTRARIO, NO.
+    system ("pause");
+    system ("cls");
+}
+
+void activarSala(){
+    system("cls");
+    ArchivoPelicula archivo("archivo/Peliculas.dat");
+    int idBuscado;
+    cout << "Ingrese el ID de la pelicula a activar: ";
+    cin >> idBuscado;
+    int pos = archivo.buscarPorID(idBuscado);
+    if (pos == -1) {
+        cout << "No se encontró ninguna pelicula con ese ID." << endl;
+        return;
+    }
+    Pelicula peli = archivo.leerRegistro(pos);
+    cout << "Pelicula encontrada: " << endl;
+    peli.mostrar();
+    if (peli.getEstado()) { /// SI LA PELICULA ESTA ACTIVA, NO SE PUEDE ACTIVAR.
+        cout << "La pelicula ya se encuentra activa." << endl;
+    } else {
+        cout << "Esta seguro que desea activar la pelicula? S/N: ";
+        string seg;
+        cin >> seg;
+
+        if (seg == "S" || seg == "s") {
+            peli.setEstado(true);  // activa la película
+            ArchivoPelicula archivo("archivo/Peliculas.dat");
+            int pos = archivo.buscarPorID(peli.getId());
+            if (pos != -1) {
+                archivo.modificar(peli, pos);  // Guardar cambios en el archivo
+            }
+            cout << "!La pelicula se activo correctamente!" << endl;
+        }
+    }
+    system ("pause");
+    system ("cls");
+}*/
 
 /// ////////////////////// VENTA //////////////////////
 
