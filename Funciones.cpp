@@ -38,7 +38,7 @@ void menu (){
                 break;
 
             case 3: /// OPCIONES PARA VENTAS ///
-                venta();
+                ventas();
                 break;
 
             case 0: /// SALIR ///
@@ -970,10 +970,10 @@ void activarSala(){
 
 /// ////////////////////// VENTA //////////////////////
 
-void venta (){
+void ventas (){
     system("cls");
     while (true){
-        int eleccion = menuSalas();
+        int eleccion = menuVenta();
         switch (eleccion){
             case 1: // CREAR VENTA
                 //crearVenta();

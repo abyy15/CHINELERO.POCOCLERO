@@ -56,5 +56,5 @@ void modTipoSala();
 void modCantButSala();
 
 /// VENTAS ///
-void venta();
+void ventas();
 int menuVenta();

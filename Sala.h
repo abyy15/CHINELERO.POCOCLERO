@@ -9,8 +9,10 @@ class Sala {
         int tipoSala; // 1- Estandar 2- Premium 3-Confort Plus
         int butacasDisponibles;
         bool estado = true;
+        // float precio ; // Dependiendo de cada tipo de sala, es un costo
 
     public:
+
         /// GETTERS ///
         int getNumSala() { return numSala; }
         char* getNombreSala()  { return nombreSala; }
