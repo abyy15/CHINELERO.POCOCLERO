@@ -87,7 +87,7 @@ void pelicula (){
                 modificarPelicula();
                 break;
             case 4: // BORRAR PELICULA
-                desabilitarPelicula();
+                desactivarPelicula();
                 break;
             case 5: // ACTIVAR PELICULA
                 activarPelicula();
@@ -110,7 +110,7 @@ int menuPelicula (){
     cout << "1- Crear Pelicula" << endl;
     cout << "2- Listar Peliculas" << endl;
     cout << "3- Modificar Pelicula" << endl;
-    cout << "4- Desabilitar Pelicula" << endl;
+    cout << "4- Desactivar Pelicula" << endl;
     cout << "5- Activar Pelicula" << endl;
     cout << "=========================================" << endl;
     cout << "0- Salir" << endl;
@@ -357,9 +357,9 @@ void modFechaDeEstreno() {
     }
 }
 
-/// DESABILITAR / ACTIVAR PELICULA
+/// DESACTIVAR / ACTIVAR PELICULA
 
-void desabilitarPelicula(){
+void desactivarPelicula(){
     system("cls");
     ArchivoPelicula archivo("archivo/Peliculas.dat");
     int idBuscado;
@@ -649,10 +649,10 @@ void salas(){
                 modificarSala();
                 break;
             case 4: // DESABILITAR/ELIMINAR SALA
-                //desabilitarSala();
+                desactivarSala();
                 break;
             case 5: // ACTIVAR SALA
-                //activarSala();
+                activarSala();
                 break;
             case 0: // SALIR
                 return;
@@ -673,7 +673,8 @@ int menuSalas(){
     cout << "1- Crear Sala" << endl;
     cout << "2- Listar Sala" << endl;
     cout << "3- Modificar Sala" << endl;
-    cout << "4- Borrar Sala" << endl;
+    cout << "4- Desactivar Sala" << endl;
+    cout << "5- Activar Sala" << endl;
     cout << "=========================================" << endl;
     cout << "0- Salir" << endl;
     cout << "=========================================" << endl;
@@ -898,74 +899,74 @@ void modCantButSala(){
 
 /// DESABILITAR / ACTIVAR SALA /// SIN CREAR PROPIEDAD ESTADO EN LA CLASE SALA
 
-/*void desabilitarSala(){
+void desactivarSala(){
     system("cls");
-    ArchivoPelicula archivo("archivo/Peliculas.dat");
-    int idBuscado;
-    cout << "Ingrese el ID de la pelicula a desabilitar: ";
-    cin >> idBuscado;
-    int pos = archivo.buscarPorID(idBuscado);
+    ArchivoSala archivo("archivo/Salas.dat");
+    int numBuscado;
+    cout << "Ingrese el numero de la sala a desabilitar: ";
+    cin >> numBuscado;
+    int pos = archivo.buscarPorNum(numBuscado);
     if (pos == -1) {
-        cout << "No se encontró ninguna pelicula con ese ID." << endl;
+        cout << "No se encontró ninguna sala con ese numero." << endl;
         return;
     }
-    Pelicula peli = archivo.leerRegistro(pos);
-    cout << "Pelicula encontrada: " << endl;
-    peli.mostrar();
-    if (peli.getEstado()){ /// SI LA PELICULA ESTA ACTIVA, SE PUEDE DESABILITAR.
+    Sala sala = archivo.leerRegistro(pos);
+    cout << "Sala encontrada: " << endl;
+    sala.mostrar();
+    if (sala.getEstado()){ /// SI LA SALA ESTA ACTIVA, SE PUEDE DESABILITAR.
         cout << endl;
-        cout << "Esta seguro que desea eliminar/desactivar la pelicula? S/N: ";
+        cout << "Esta seguro que desea eliminar/desactivar la sala? S/N: ";
         string seg;
         cin >> seg;
 
         if (seg == "S" || seg == "s") {
-            peli.setEstado(false);  // Desactiva la película
-            ArchivoPelicula archivo("archivo/Peliculas.dat");
-            int pos = archivo.buscarPorID(peli.getId());
+            sala.setEstado(false);  // Desactiva la película
+            ArchivoSala archivo("archivo/Salas.dat");
+            int pos = archivo.buscarPorNum(sala.getNumSala());
             if (pos != -1) {
-                archivo.modificar(peli, pos);  // Guardar cambios en el archivo
+                archivo.modificar(sala, pos);  // Guardar cambios en el archivo
             }
-            cout << "!La pelicula se desactivo correctamente!" << endl;
+            cout << "!La sala se desactivo correctamente!" << endl;
         }
-    } else cout << "La pelicula ya se encuentra desabilitada." << endl; /// CASO CONTRARIO, NO.
+    } else cout << "La sala ya se encuentra desabilitada." << endl; /// CASO CONTRARIO, NO.
     system ("pause");
     system ("cls");
-}*/
+}
 
-/*void activarSala(){
+void activarSala(){
     system("cls");
-    ArchivoPelicula archivo("archivo/Peliculas.dat");
-    int idBuscado;
-    cout << "Ingrese el ID de la pelicula a activar: ";
-    cin >> idBuscado;
-    int pos = archivo.buscarPorID(idBuscado);
+    ArchivoSala archivo("archivo/Salas.dat");
+    int numBuscado;
+    cout << "Ingrese el numero de la sala a activar: ";
+    cin >> numBuscado;
+    int pos = archivo.buscarPorNum(numBuscado);
     if (pos == -1) {
-        cout << "No se encontró ninguna pelicula con ese ID." << endl;
+        cout << "No se encontró ninguna sala con ese numero." << endl;
         return;
     }
-    Pelicula peli = archivo.leerRegistro(pos);
-    cout << "Pelicula encontrada: " << endl;
-    peli.mostrar();
-    if (peli.getEstado()) { /// SI LA PELICULA ESTA ACTIVA, NO SE PUEDE ACTIVAR.
-        cout << "La pelicula ya se encuentra activa." << endl;
+    Sala sala = archivo.leerRegistro(pos);
+    cout << "Sala encontrada: " << endl;
+    sala.mostrar();
+    if (sala.getEstado()) { /// SI LA SALA ESTA ACTIVA, NO SE PUEDE ACTIVAR.
+        cout << "La sala ya se encuentra activa." << endl;
     } else {
-        cout << "Esta seguro que desea activar la pelicula? S/N: ";
+        cout << "Esta seguro que desea activar la sala? S/N: ";
         string seg;
         cin >> seg;
 
         if (seg == "S" || seg == "s") {
-            peli.setEstado(true);  // activa la película
-            ArchivoPelicula archivo("archivo/Peliculas.dat");
-            int pos = archivo.buscarPorID(peli.getId());
+            sala.setEstado(true);  // activa la sala
+            ArchivoSala archivo("archivo/Salas.dat");
+            int pos = archivo.buscarPorNum(sala.getNumSala());
             if (pos != -1) {
-                archivo.modificar(peli, pos);  // Guardar cambios en el archivo
+                archivo.modificar(sala, pos);  // Guardar cambios en el archivo
             }
-            cout << "!La pelicula se activo correctamente!" << endl;
+            cout << "!La sala se activo correctamente!" << endl;
         }
     }
     system ("pause");
     system ("cls");
-}*/
+}
 
 /// ////////////////////// VENTA //////////////////////
 

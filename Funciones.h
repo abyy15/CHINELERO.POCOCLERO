@@ -14,7 +14,7 @@ void cargarCadena(char *palabra, int tamano);
 void pelicula();
 int menuPelicula ();
 void crearPelicula();
-void desabilitarPelicula();
+void desactivarPelicula();
 void activarPelicula();
 
 /// MODIFICAR PELICULAS ///
@@ -43,8 +43,8 @@ void salas();
 int menuSalas();
 void crearSala();
 void listarSala();
+void desactivarSala();
 void activarSala();
-void desabilitarSala();
 
 /// MODIFICAR SALAS ///
 void modificarSala();

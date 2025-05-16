@@ -8,6 +8,7 @@ class Sala {
         char nombreSala [30];
         int tipoSala; // 1- Estandar 2- Premium 3-Confort Plus
         int butacasDisponibles;
+        bool estado = true;
 
     public:
         /// GETTERS ///
@@ -15,12 +16,14 @@ class Sala {
         char* getNombreSala()  { return nombreSala; }
         int getTipoSala() { return tipoSala; }
         int getButacasDisponibles() { return butacasDisponibles; }
+        bool getEstado() { return estado; }
 
         /// SETTERS ///
         void setNumSala(int num) { numSala = num; }
         void setNombreSala(const char* nombre) { strcpy(nombreSala, nombre); }
         void setTipoSala(int tipo) { tipoSala = tipo; }
         void setButacasDisponibles(int butacas) { butacasDisponibles = butacas; }
+        void setEstado(bool e) { estado = e; }
 
         /// METODOS ///
         void cargar(){
@@ -46,7 +49,8 @@ class Sala {
             char ts [30];
             tipoDeSala (tipoSala, ts);
             cout << "Tipo de Sala: " << ts << endl ;
-            cout << "Cantidad de Butacas Disponibles: " << butacasDisponibles ;
+            cout << "Cantidad de Butacas Disponibles: " << butacasDisponibles << endl;
+            cout << "Estado: " << (estado ? "Activo" : "Desactivado") ;
             cout << endl;
 
         }
@@ -121,7 +125,6 @@ class ArchivoSala {
             }
             while (fread(&p, sizeof(Sala), 1, f) == 1) {
                 p.mostrar();
-                cout << endl;
                 cout << "----------------------------\n";
             }
             fclose(f);
