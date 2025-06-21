@@ -8,17 +8,20 @@ class Venta {
     private:
         int idVenta;
         int idPelicula;
-        int idSala;
+        int numSala;
         int cantidadEntradas;
         float montoTotal;
         Fecha fechaVenta;
 
     public:
+
+        bool cargarConValidacion();
+
         /// CONSTRUCTOR ///
         Venta() {
             idVenta = 0;
             idPelicula = 0;
-            idSala = 0;
+            numSala = 0;
             cantidadEntradas = 0;
             montoTotal = 0.0;
         }
@@ -26,7 +29,7 @@ class Venta {
         /// SETTERS ///
         void setIdVenta(int id) { idVenta = id; }
         void setIdPelicula(int id) { idPelicula = id; }
-        void setIdSala(int id) { idSala = id; }
+        void setNumSala(int id) { numSala = id; }
         void setCantidadEntradas(int cant) { cantidadEntradas = cant; }
         void setMontoTotal(float monto) { montoTotal = monto; }
         void setFechaVenta(Fecha fecha) { fechaVenta = fecha; }
@@ -34,32 +37,17 @@ class Venta {
         /// GETTERS ///
         int getIdVenta() { return idVenta; }
         int getIdPelicula() { return idPelicula; }
-        int getIdSala() { return idSala; }
+        int getNumSala() { return numSala; }
         int getCantidadEntradas() { return cantidadEntradas; }
         float getMontoTotal() { return montoTotal; }
         Fecha getFechaVenta() { return fechaVenta; }
 
-        /// MÉTODO CARGAR ///
-        void cargar() {
-            cout << "ID de la venta: ";
-            cin >> idVenta;
-            cout << "ID de la pelicula: ";
-            cin >> idPelicula;
-            cout << "ID de la sala: ";
-            cin >> idSala;
-            cout << "Cantidad de entradas: ";
-            cin >> cantidadEntradas;
-            cout << "Monto total ($): ";
-            cin >> montoTotal;
-            cout << "Fecha de la venta:\n";
-            fechaVenta.cargar();
-        }
 
         /// MÉTODO MOSTRAR ///
         void mostrar() {
             cout << "Venta #" << idVenta << endl;
             cout << "ID Pelicula: " << idPelicula << endl;
-            cout << "ID Sala: " << idSala << endl;
+            cout << "Numero de Sala: " << numSala << endl;
             cout << "Cantidad de Entradas: " << cantidadEntradas << endl;
             cout << "Monto Total: $" << montoTotal << endl;
             cout << "Fecha de Venta: ";
@@ -122,8 +110,54 @@ class ArchivoVenta {
             }
             while (fread(&v, sizeof(Venta), 1, f) == 1) {
                 v.mostrar();
-                cout << endl << "----------------------------\n";
+                cout << "----------------------------" << endl;
             }
             fclose(f);
         }
 };
+
+/// MÉTODO CARGAR ///
+
+bool Venta :: cargarConValidacion(){
+    ArchivoPelicula archivoPelicula ("archivo/Peliculas.dat");
+    ArchivoSala archivoSala ("archivo/Salas.dat");
+    Sala objSala;
+    ArchivoVenta archivoVenta("archivo/Ventas.dat");
+    int cantidadRegistros = 0;
+    cantidadRegistros = archivoVenta.contarRegistros();
+    idVenta = cantidadRegistros + 1;
+    cout << "=========================================" << endl;
+    cout << "         PELICULAS DISPONIBLES           " << endl;
+    cout << "=========================================" << endl;
+    archivoPelicula.listarTodos();
+    cout << "=========================================" << endl;
+    cout << "La ID de la venta sera: " << idVenta << endl;
+    cout << "=========================================" << endl;
+    cout << "ID de la pelicula: " ;
+    cin >> idPelicula;
+    cout << "=========================================" << endl;
+    while (idPelicula == 0){
+        system("cls");
+        cout << "Debe ingresar un id de Pelicula. " << endl;
+        system("pause");
+        system("cls");
+        cout << "ID de la pelicula: ";
+        cin >> idPelicula;
+    }
+    //system ("cls");
+    archivoSala.listarTodos();
+    cout << endl;
+    cout << "=========================================" << endl;
+    cout << "Ingrese el numero de sala: " ;
+    cin >> numSala;
+    cout << "Cantidad de entradas: " ;
+    cin >> cantidadEntradas;
+    int pos = archivoSala.buscarPorNum(numSala);
+    objSala = archivoSala.leerRegistro(pos);
+    montoTotal = objSala.getPrecio()* cantidadEntradas;
+    cout << "=========================================" << endl;
+    cout << "TOTAL: " << montoTotal << endl;
+    cout << "Porfavor ingrese fecha de la venta : ";
+    fechaVenta.cargar();
+    return true;
+}

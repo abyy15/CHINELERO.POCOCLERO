@@ -9,7 +9,7 @@ class Sala {
         int tipoSala; // 1- Estandar 2- Premium 3-Confort Plus
         int butacasDisponibles;
         bool estado = true;
-        // float precio ; // Dependiendo de cada tipo de sala, es un costo
+        float precio ; // 1- Estandar $500 2- Premium $1000 3-Confort Plus $1500
 
     public:
 
@@ -19,6 +19,7 @@ class Sala {
         int getTipoSala() { return tipoSala; }
         int getButacasDisponibles() { return butacasDisponibles; }
         bool getEstado() { return estado; }
+        float getPrecio (){ return precio; }
 
         /// SETTERS ///
         void setNumSala(int num) { numSala = num; }
@@ -26,6 +27,7 @@ class Sala {
         void setTipoSala(int tipo) { tipoSala = tipo; }
         void setButacasDisponibles(int butacas) { butacasDisponibles = butacas; }
         void setEstado(bool e) { estado = e; }
+        void setPrecio (float p) { precio = p; }
 
         /// METODOS ///
         void cargar(){
@@ -41,6 +43,16 @@ class Sala {
                 cout << "Ingrese un numero valido. " << endl;
                 menuSala (); }
             else break;}
+            switch (tipoSala){
+                case 1 : precio = 500;
+                    break;
+                case 2 : precio = 1000;
+                    break;
+                case 3 : precio = 1500;
+                    break;
+                default:
+                    break;
+            }
             cout << "Cantidad de Butacas Disponibles: ";
             cin >> butacasDisponibles;
         }
@@ -51,6 +63,7 @@ class Sala {
             char ts [30];
             tipoDeSala (tipoSala, ts);
             cout << "Tipo de Sala: " << ts << endl ;
+            cout << "Precio por entrada: " << precio << endl;
             cout << "Cantidad de Butacas Disponibles: " << butacasDisponibles << endl;
             cout << "Estado: " << (estado ? "Activo" : "Desactivado") ;
             cout << endl;

@@ -58,3 +58,8 @@ void modCantButSala();
 /// VENTAS ///
 void ventas();
 int menuVenta();
+void crearVenta();
+void listarVenta ();
+void desactivarVenta ();
+void activarVenta();
+

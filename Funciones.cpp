@@ -976,10 +976,10 @@ void ventas (){
         int eleccion = menuVenta();
         switch (eleccion){
             case 1: // CREAR VENTA
-                //crearVenta();
-            case 2: // LISTAR VENTA
+                crearVenta();
                 break;
-                //listarVenta();
+            case 2: // LISTAR VENTA
+                listarVenta();
                 break;
             case 3: // MODIFICAR VENTA
                 //modificarVenta();
@@ -1013,3 +1013,22 @@ int menuVenta(){
     cin >> opcion;
     return opcion;
 }
+
+void crearVenta(){
+    Venta objVenta;
+    ArchivoVenta archivoVenta ("archivo/Ventas.dat");
+    system("cls");
+    objVenta.cargarConValidacion();
+    archivoVenta.guardar(objVenta);
+    cout << "SE GUARDO CON EXITO!" << endl;
+    system ("cls");
+}
+
+void listarVenta(){
+    system("cls");
+    ArchivoVenta archivoventa("archivo/Ventas.dat");
+    archivoventa.listarTodos();
+    system ("pause");
+    system ("cls");
+}
+
