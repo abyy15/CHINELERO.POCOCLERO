@@ -982,7 +982,7 @@ void ventas (){
                 listarVenta();
                 break;
             case 3: // MODIFICAR VENTA
-                //modificarVenta();
+                modificarVenta();
                 break;
             case 4: // BORRAR VENTA
                 //borrarVenta();
@@ -1032,3 +1032,161 @@ void listarVenta(){
     system ("cls");
 }
 
+void modificarVenta(){
+    system("cls");
+    while (true) {
+        int eleccion = menuModificarVenta();
+        switch (eleccion) {
+            case 1: // MODIFICA TODO
+                modTodoVenta();
+                break;
+            case 2:
+                modidVenta();
+                break;
+            case 3:
+                modidPeliculaVenta();
+                break;
+            case 4:
+                //modNumSalaVenta();
+                break;
+            case 5:
+                //modCantEntradaVenta();
+                break;
+            case 6:
+                //modMontoTotalVenta();
+                break;
+            case 7:
+                //modFechaVenta();
+                break;
+            case 0: // SALIR
+                return;
+            default: // OPCION INCORRECTA
+                cout << "Ingrese una opcion correcta. " << endl;
+                system("pause");
+                system("cls");
+                break;
+        }
+        system("pause");
+        system("cls");
+    }
+}
+
+int menuModificarVenta(){
+    int opcion;
+    cout << "=========================================" << endl;
+    cout << "             MODIFICAR VENTAS            " << endl;
+    cout << "=========================================" << endl;
+    cout << "1- Modificar todos los campos" << endl;
+    cout << "2- Modificar ID Venta" << endl;
+    cout << "3- Modificar ID Pelicula" << endl;
+    cout << "4- Modificar Numero de sala" << endl;
+    cout << "5- Modificar Cantidad de Entradas" << endl;
+    cout << "6- Modificar Monto Total" << endl;
+    cout << "7- Modificar Fecha de Venta" << endl;
+    cout << "=========================================" << endl;
+    cout << "0- Salir" << endl;
+    cout << "=========================================" << endl;
+    cout << "Elija una opcion: ";
+    cin >> opcion;
+    return opcion;
+}
+
+void modTodoVenta() {
+    system ("cls");
+    ArchivoVenta archivo("archivo/Ventas.dat");
+    int idVenta;
+    cout << "Ingrese el ID de la venta que desea modificar: ";
+    cin >> idVenta;
+
+    int total = archivo.contarRegistros();
+    for (int i = 0; i < total; i++) {
+        Venta venta = archivo.leerRegistro(i);
+        if (venta.getIdVenta() == idVenta) {
+            cout << "Registro encontrado: "<< endl;
+            venta.mostrar();
+            cout << endl;
+            cout << "Ingrese los nuevos datos para la venta: " << endl;
+
+            Venta nuevaVenta;
+            nuevaVenta.setIdVenta(idVenta);  // mantenemos el mismo ID
+            nuevaVenta.cargarConValidacion();  // tu método para cargar con validación
+
+            archivo.modificar(nuevaVenta, i);
+            cout << "=========================================" << endl;
+            cout << "Venta modificada con éxito." << endl;
+            return;
+        }
+    }
+
+    cout << "No se encontró una venta con ese ID.\n";
+}
+
+void modidVenta() {
+    ArchivoVenta archivo("archivo/Ventas.dat");
+    int idVenta;
+    cout << "Ingrese el ID actual de la venta a modificar: ";
+    cin >> idVenta;
+
+    int total = archivo.contarRegistros();
+    for (int i = 0; i < total; i++) {
+        Venta venta = archivo.leerRegistro(i);
+        if (venta.getIdVenta() == idVenta) {
+            int nuevoId;
+            cout << "ID actual: " << venta.getIdVenta() << endl;
+            cout << "Ingrese el nuevo ID: ";
+            cin >> nuevoId;
+            venta.setIdVenta(nuevoId);
+            archivo.modificar(venta, i);
+            cout << "ID de la venta modificado con éxito." << endl;
+            return;
+        }
+    }
+
+    cout << "No se encontró una venta con ese ID." << endl ;
+}
+
+void modidPeliculaVenta() {
+    system("cls");
+    ArchivoVenta archivoVenta("archivo/Ventas.dat");
+    ArchivoPelicula archivoPelicula("archivo/Peliculas.dat");
+    int idVenta;
+    cout << "Ingrese el ID de la venta a modificar: ";
+    cin >> idVenta;
+
+    int total = archivoVenta.contarRegistros();
+    for (int i = 0; i < total; i++) {
+        Venta venta = archivoVenta.leerRegistro(i);
+        if (venta.getIdVenta() == idVenta) {
+            int idPeliculaActual = venta.getIdPelicula();
+            int posPeli = archivoPelicula.buscarPorID(idPeliculaActual);
+
+            cout << "=========================================" << endl;
+            cout << "PELICULA ACTUAL DE LA VENTA: " << endl;
+            cout << "=========================================" << endl;
+
+            if (posPeli != -1) {
+                Pelicula pelicula = archivoPelicula.leerRegistro(posPeli);
+                pelicula.mostrar();
+            } else {
+                cout << "No se encontro la pelicula actual (ID: " << idPeliculaActual << ")" << endl;
+            }
+
+            cout << "=========================================" << endl;
+            cout << "           LISTA DE PELICULAS            " << endl;
+            cout << "=========================================" << endl;
+            archivoPelicula.listarTodos();
+            int nuevoIdPelicula;
+            cout << "Ingrese el nuevo ID de pelicula: ";
+            cin >> nuevoIdPelicula;
+
+            venta.setIdPelicula(nuevoIdPelicula);
+            archivoVenta.modificar(venta, i);
+
+            cout << "=========================================" << endl;
+            cout << "ID de pelicula modificado con éxito." << endl;
+            return;
+        }
+    }
+
+    cout << "No se encontro una venta con ese ID." << endl;
+}

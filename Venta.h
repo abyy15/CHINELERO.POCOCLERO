@@ -52,7 +52,6 @@ class Venta {
             cout << "Monto Total: $" << montoTotal << endl;
             cout << "Fecha de Venta: ";
             fechaVenta.mostrar();
-            cout << endl;
         }
 };
 

@@ -63,3 +63,13 @@ void listarVenta ();
 void desactivarVenta ();
 void activarVenta();
 
+/// MODIFICAR VENTAS ///
+void modificarVenta();
+int menuModificarVenta();
+void modTodoVenta();
+void modidVenta();
+void modidPeliculaVenta();
+void modNumSalaVenta();
+void modCantEntradaVenta();
+void modMontoTotalVenta();
+void modFechaVenta();
