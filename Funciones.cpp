@@ -1047,7 +1047,7 @@ void modificarVenta(){
                 modidPeliculaVenta();
                 break;
             case 4:
-                //modNumSalaVenta();
+                modNumSalaVenta();
                 break;
             case 5:
                 //modCantEntradaVenta();
@@ -1189,4 +1189,53 @@ void modidPeliculaVenta() {
     }
 
     cout << "No se encontro una venta con ese ID." << endl;
+}
+
+void modNumSalaVenta() {
+    ArchivoVenta archivoVenta("archivo/Ventas.dat");
+    ArchivoSala archivoSala("archivo/Salas.dat");
+
+    int idVenta;
+    cout << "Ingrese el ID de la venta a modificar: ";
+    cin >> idVenta;
+
+    int totalVentas = archivoVenta.contarRegistros();
+    for (int i = 0; i < totalVentas; i++) {
+        Venta venta = archivoVenta.leerRegistro(i);
+        if (venta.getIdVenta() == idVenta) {
+            int numSalaActual = venta.getNumSala();
+
+            // Mostrar sala actual
+            int posSalaActual = archivoSala.buscarPorNum(numSalaActual);
+            if (posSalaActual != -1) {
+                Sala salaActual = archivoSala.leerRegistro(posSalaActual);
+                cout << "Sala actual: " << endl ;
+                salaActual.mostrar();
+            } else {
+                cout << "No se encontró la sala actual en archivo." << endl;
+            }
+            cout << "=========================================" << endl;
+            cout << "=== LISTADO DE SALAS DISPONIBLES ===" << endl;
+            cout << "=========================================" << endl;
+            archivoSala.listarTodos();
+
+            int nuevaSala;
+            cout << "=========================================" << endl;
+            cout << "Ingrese el nuevo número de sala: ";
+            cin >> nuevaSala;
+
+            int posNuevaSala = archivoSala.buscarPorNum(nuevaSala);
+            if (posNuevaSala == -1) {
+                cout << "La sala ingresada no existe." << endl;
+                return;
+            }
+
+            venta.setNumSala(nuevaSala);
+            archivoVenta.modificar(venta, i);
+            cout << "=========================================" << endl;
+            cout << "Número de sala modificado con éxito." << endl;
+            return;
+        }
+    }
+    cout << "No se encontró una venta con ese ID." << endl;
 }
