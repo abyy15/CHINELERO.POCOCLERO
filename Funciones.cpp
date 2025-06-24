@@ -897,7 +897,7 @@ void modCantButSala(){
     }
 }
 
-/// DESABILITAR / ACTIVAR SALA /// SIN CREAR PROPIEDAD ESTADO EN LA CLASE SALA
+/// DESABILITAR / ACTIVAR SALA ///
 
 void desactivarSala(){
     system("cls");
@@ -984,8 +984,11 @@ void ventas (){
             case 3: // MODIFICAR VENTA
                 modificarVenta();
                 break;
-            case 4: // BORRAR VENTA
-                //borrarVenta();
+            case 4: // DESACTIVAR VENTA
+                desactivarVenta();
+                break;
+            case 5: // ACTIVAR VENTA
+                activarVenta();
                 break;
             case 0: // SALIR
                 return;
@@ -1005,7 +1008,8 @@ int menuVenta(){
     cout << "1- Crear Venta" << endl;
     cout << "2- Listar Ventas" << endl;
     cout << "3- Modificar Venta" << endl;
-    cout << "4- Borrar Venta" << endl;
+    cout << "5- Desactivar Venta" << endl;
+    cout << "5- Activar Venta" << endl;
     cout << "=========================================" << endl;
     cout << "0- Salir" << endl;
     cout << "=========================================" << endl;
@@ -1050,13 +1054,13 @@ void modificarVenta(){
                 modNumSalaVenta();
                 break;
             case 5:
-                //modCantEntradaVenta();
+                modCantEntradaVenta();
                 break;
             case 6:
-                //modMontoTotalVenta();
+                modMontoTotalVenta();
                 break;
             case 7:
-                //modFechaVenta();
+                modFechaVenta();
                 break;
             case 0: // SALIR
                 return;
@@ -1238,4 +1242,150 @@ void modNumSalaVenta() {
         }
     }
     cout << "No se encontró una venta con ese ID." << endl;
+}
+
+void modCantEntradaVenta() {
+    ArchivoVenta archivo("archivo/Ventas.dat");
+    int idVenta;
+    cout << "Ingrese el ID de la venta a modificar: ";
+    cin >> idVenta;
+
+    int total = archivo.contarRegistros();
+    for (int i = 0; i < total; i++) {
+        Venta venta = archivo.leerRegistro(i);
+        if (venta.getIdVenta() == idVenta) {
+            int nuevaCantidad;
+            cout << "Cantidad de entradas actual: " << venta.getCantidadEntradas() << endl;
+            cout << "Ingrese la nueva cantidad de entradas: ";
+            cin >> nuevaCantidad;
+            venta.setCantidadEntradas(nuevaCantidad);
+
+            float nuevoMonto = nuevaCantidad * venta.getMontoTotal();
+            venta.setMontoTotal(nuevoMonto);
+            cout << "Nuevo monto total actualizado: $" << nuevoMonto << endl;
+
+            archivo.modificar(venta, i);
+            cout << "Cantidad de entradas modificada con exito." << endl;
+            return;
+        }
+    }
+    cout << "No se encontró una venta con ese ID." << endl;
+}
+
+void modMontoTotalVenta() {
+    ArchivoVenta archivo("archivo/Ventas.dat");
+    int idVenta;
+    cout << "Ingrese el ID de la venta a modificar: ";
+    cin >> idVenta;
+
+    int total = archivo.contarRegistros();
+    for (int i = 0; i < total; i++) {
+        Venta venta = archivo.leerRegistro(i);
+        if (venta.getIdVenta() == idVenta) {
+            float nuevoMonto;
+            cout << "Monto actual: $" << venta.getMontoTotal() << endl;
+            cout << "Ingrese el nuevo monto total: $";
+            cin >> nuevoMonto;
+            venta.setMontoTotal(nuevoMonto);
+            archivo.modificar(venta, i);
+            cout << "Monto total modificado con éxito." << endl;
+            return;
+        }
+    }
+    cout << "No se encontró una venta con ese ID." << endl;
+}
+
+void modFechaVenta() {
+    ArchivoVenta archivo("archivo/Ventas.dat");
+    int idVenta;
+    cout << "Ingrese el ID de la venta a modificar: ";
+    cin >> idVenta;
+
+    int total = archivo.contarRegistros();
+    for (int i = 0; i < total; i++) {
+        Venta venta = archivo.leerRegistro(i);
+        if (venta.getIdVenta() == idVenta) {
+            Fecha nuevaFecha;
+            cout << "Fecha actual: ";
+            venta.getFechaVenta().mostrar();
+            cout << endl << "Ingrese la nueva fecha: ";
+            nuevaFecha.cargar();
+            venta.setFechaVenta(nuevaFecha);
+            archivo.modificar(venta, i);
+            cout << "Fecha modificada con exito." << endl;
+            return;
+        }
+    }
+    cout << "No se encontro una venta con ese ID." << endl;
+}
+
+/// DESABILITAR / ACTIVAR SALA ///
+void desactivarVenta() {
+    system("cls");
+    ArchivoVenta archivo("archivo/Ventas.dat");
+    int idBuscado;
+    cout << "Ingrese el ID de la venta a desactivar: ";
+    cin >> idBuscado;
+
+    int pos = archivo.buscarPorID(idBuscado);
+    if (pos == -1) {
+        cout << "No se encontro ninguna venta con ese ID." << endl;
+        return;
+    }
+
+    Venta venta = archivo.leerRegistro(pos);
+    cout << "Venta encontrada: " << endl;
+    venta.mostrar();
+
+    if (venta.getEstado()) {
+        cout << endl << "¿Esta seguro que desea desactivar esta venta? (S/N): ";
+        string seg;
+        cin >> seg;
+
+        if (seg == "S" || seg == "s") {
+            venta.setEstado(false);
+            archivo.modificar(venta, pos);
+            cout << "!La venta se desactivo correctamente!" << endl;
+        }
+    } else {
+        cout << "La venta ya esta desactivada." << endl;
+    }
+
+    system("pause");
+    system("cls");
+}
+
+void activarVenta() {
+    system("cls");
+    ArchivoVenta archivo("archivo/Ventas.dat");
+    int idBuscado;
+    cout << "Ingrese el ID de la venta a activar: ";
+    cin >> idBuscado;
+
+    int pos = archivo.buscarPorID(idBuscado);
+    if (pos == -1) {
+        cout << "No se encontró ninguna venta con ese ID." << endl;
+        return;
+    }
+
+    Venta venta = archivo.leerRegistro(pos);
+    cout << "Venta encontrada: " << endl;
+    venta.mostrar();
+
+    if (venta.getEstado()) {
+        cout << "La venta ya está activa." << endl;
+    } else {
+        cout << "¿Está seguro que desea activar esta venta? (S/N): ";
+        string seg;
+        cin >> seg;
+
+        if (seg == "S" || seg == "s") {
+            venta.setEstado(true);
+            archivo.modificar(venta, pos);
+            cout << "!La venta se activó correctamente!" << endl;
+        }
+    }
+
+    system("pause");
+    system("cls");
 }

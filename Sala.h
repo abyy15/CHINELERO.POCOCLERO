@@ -13,14 +13,6 @@ class Sala {
 
     public:
 
-        /// GETTERS ///
-        int getNumSala() { return numSala; }
-        char* getNombreSala()  { return nombreSala; }
-        int getTipoSala() { return tipoSala; }
-        int getButacasDisponibles() { return butacasDisponibles; }
-        bool getEstado() { return estado; }
-        float getPrecio (){ return precio; }
-
         /// SETTERS ///
         void setNumSala(int num) { numSala = num; }
         void setNombreSala(const char* nombre) { strcpy(nombreSala, nombre); }
@@ -28,6 +20,14 @@ class Sala {
         void setButacasDisponibles(int butacas) { butacasDisponibles = butacas; }
         void setEstado(bool e) { estado = e; }
         void setPrecio (float p) { precio = p; }
+
+        /// GETTERS ///
+        int getNumSala() { return numSala; }
+        char* getNombreSala()  { return nombreSala; }
+        int getTipoSala() { return tipoSala; }
+        int getButacasDisponibles() { return butacasDisponibles; }
+        bool getEstado() { return estado; }
+        float getPrecio (){ return precio; }
 
         /// METODOS ///
         void cargar(){

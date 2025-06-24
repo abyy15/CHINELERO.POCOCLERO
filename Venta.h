@@ -12,6 +12,7 @@ class Venta {
         int cantidadEntradas;
         float montoTotal;
         Fecha fechaVenta;
+        bool estado = true;
 
     public:
 
@@ -33,6 +34,7 @@ class Venta {
         void setCantidadEntradas(int cant) { cantidadEntradas = cant; }
         void setMontoTotal(float monto) { montoTotal = monto; }
         void setFechaVenta(Fecha fecha) { fechaVenta = fecha; }
+        void setEstado(bool e) { estado = e; }
 
         /// GETTERS ///
         int getIdVenta() { return idVenta; }
@@ -41,6 +43,7 @@ class Venta {
         int getCantidadEntradas() { return cantidadEntradas; }
         float getMontoTotal() { return montoTotal; }
         Fecha getFechaVenta() { return fechaVenta; }
+        bool getEstado() { return estado; }
 
 
         /// MÉTODO MOSTRAR ///
@@ -113,6 +116,24 @@ class ArchivoVenta {
             }
             fclose(f);
         }
+
+        int buscarPorID(int idBuscado) {
+            Venta v;
+            FILE* f = fopen(nombreArchivo, "rb");
+            if (f == nullptr) return -1;
+
+            int pos = 0;
+            while (fread(&v, sizeof(Venta), 1, f) == 1) {
+                if (v.getIdVenta() == idBuscado) {
+                    fclose(f);
+                    return pos;
+                }
+                pos++;
+            }
+            fclose(f);
+            return -1; // no encontrado
+        }
+
 };
 
 /// MÉTODO CARGAR ///

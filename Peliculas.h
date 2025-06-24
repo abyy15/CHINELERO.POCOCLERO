@@ -49,6 +49,15 @@ class Pelicula {
             cout << "Estado: " << (estado ? "Activo" : "Desactivado") << endl;
         }
 
+        //SETTERS
+        void setId(int _id) { id = _id; }
+        void setNombre(const char* _nombre) { strncpy(nombre, _nombre, sizeof(nombre)-1); }
+        void setDirector(const char* _director) { strncpy(director, _director, sizeof(director)-1); }
+        void setGenero(const char* _genero) { strncpy(genero, _genero, sizeof(genero)-1); }
+        void setClasificacion(int _clasificacion) { clasificacion = _clasificacion; }
+        void setFechaEstreno(const Fecha& _fechaEstreno) { fechaEstreno = _fechaEstreno; }
+        void setEstado(bool e) { estado = e; }
+
         // GETTERS
         int getId() { return id; }
         char* getNombre() { return nombre; }
@@ -58,14 +67,6 @@ class Pelicula {
         Fecha getFechaEstreno() { return fechaEstreno; }
         bool getEstado() { return estado; }
 
-        //SETTERS
-        void setId(int _id) { id = _id; }
-        void setNombre(const char* _nombre) { strncpy(nombre, _nombre, sizeof(nombre)-1); }
-        void setDirector(const char* _director) { strncpy(director, _director, sizeof(director)-1); }
-        void setGenero(const char* _genero) { strncpy(genero, _genero, sizeof(genero)-1); }
-        void setClasificacion(int _clasificacion) { clasificacion = _clasificacion; }
-        void setFechaEstreno(const Fecha& _fechaEstreno) { fechaEstreno = _fechaEstreno; }
-        void setEstado(bool e) { estado = e; }
 };
 
 class ArchivoPelicula {
